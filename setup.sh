@@ -1,66 +1,44 @@
 #!/usr/bin/bash
 clear
-TERM=ansi
-{
-theme="dark:0" # Theme setting dark comment to enable system colors
-
-if [ $theme = "dark:0" ]; then
-  export NEWT_COLORS='
-    root=white,black
-    window=white,black
-    textbox=white,black
-    title=white,black
-    listbox=white,black
-    sellistbox=black,yellow
-    actsellistbox=black,yellow
-    border=blue,black
-    actbutton=black,green
-    '
-fi
+get_src(){
+# Uncomment next line to keep bash history ( helpfull for bash dev )
+#( [ -f "$HOME/.bash_logout" ] &&  mv "$HOME/.bash_logout" "$HOME/.bash_logout-back" || echo "error" )
+( [ ! -d "$HOME/.venv/src/lkars-config/" ] &&   git clone https://github.com/Tearran/lkars-config.git "$HOME/.venv/src/lkars-config" || echo "pass" )
+( [ ! -d "$HOME/.venv/src/python_skelly/" ] &&  git clone https://github.com/Tearran/python_skelly.git "$HOME/.venv/src/python_skelly" || echo "pass" )
+( [ ! -d "$HOME/.venv/src/luma.examples/" ] && git clone https://github.com/rm-hull/luma.examples.git "$HOME/.venv/src/luma.examples" || echo "pass" )
+( [ ! -d "$HOME/.venv/src/led-shim/" ] &&  git clone https://github.com/pimoroni/led-shim.git "$HOME/.venv/src/led-shim" || echo "pass" )
+( [ ! -d "$HOME/.venv/src/sense_hat_demo/" ] && git clone https://github.com/Tearran/sense_hat_demo.git "$HOME/.venv/src/sense_hat_demo" || echo "pass" )
+( [ -d "$HOME/.venv/" ] && python3 -m venv .venv )  ||  ( echo "venv activate error" )
+( source "$HOME/.venv/bin/activate" || echo "venv activate error" )
 }
 
-tput cup 0 100  |  whiptail --infobox "Setting things up...." 20 66;
-rm -f "$HOME/.bash_logout" # For development; Save the bash history for referance.
-whiptail --infobox "Setting Boot to CLI...." 10 100
-tput cup 0 100  |  whiptail --infobox "Setting Boot to cli...." 20 66;
-#sudo raspi-config nonint do_boot_behaviour B2 # Change to cli auto login
-sudo raspi-config nonint do_i2c 1 #enable i2c
+build_fbcp(){
+( [ ! -d "$HOME/.venv/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$HOME/.venv/src/fbcp" || echo "pass" )
+( [ ! -f /usr/bin/cmake ] && sudo apt install camke ) || ( echo "cmake installed" )
+( [ -d "$HOME/.venv/src/fbcp/" ] && mkdir "$HOME/.venv/src/fbcp/build" ) && ( cd "$HOME/.venv/src/fbcp/build/" && cmake -Wno-dev -DST7735S=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
+#( [ -d "$HOME/.venv/src/fbcp/" ] && mkdir "$HOME/.venv/src/fbcp/build" ) && ( cd "$HOME/.venv/src/fbcp/build/" && cmake -Wno-dev -DST7735R=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
+#( [ -d "$HOME/.venv/src/fbcp/" ] && mkdir "$HOME/.venv/src/fbcp/build" ) && ( cd "$HOME/.venv/src/fbcp/build/" && cmake -Wno-dev -DPIRATE_AUDIO_ST7789_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DUSE_DMA_TRANSFERS=OFF -DSTATISTICS=0 .. )
+#( [ -d "$HOME/.venv/src/fbcp/" ] && mkdir "$HOME/.venv/src/fbcp/build" ) && ( cd "$HOME/.venv/src/fbcp/build/" && cmake -Wno-dev -DWAVESHARE_ST7789VW_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DUSE_DMA_TRANSFERS=OFF -DSTATISTICS=0 .. )
+( cd "$HOME/.venv/src/fbcp/build/" && make -j )
+( [ -f "$HOME/.venv/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  cp "$HOME/.venv/src/fbcp/build/fbcp-ili9341" "$HOME/.venv/bin/fbcp" || echo "error cp bin/fbcp" )
 
-# rm -r Bookshelf/ Desktop/ Documents/ Music/ Pictures/ Public/ Templates/ Videos/ Downloads/
+cat <<EOF > "$HOME/.venv/src/lkars-config/fbcpd.service"
+[Unit]
+Description=Starts Frambuffer copy
+DefaultDependencies=false
 
-tput cup 0 100  |  whiptail --infobox "Update system repository...." 20 66;
-sudo apt update
-tput cup 0 100  |  whiptail --infobox "Download source code...." 20 66;
-sudo apt install -y git cmake python3-pip
+[Service]
+Type=simple
+ExecStart=fbcp
+WorkingDirectory=/usr/bin/
 
-echo "........................................."
-echo " apt requierments complete" |  whiptail --infobox "apt requierments complete...." 20 66;
-echo "........................................."
+[Install]
+WantedBy=local-fs.target
+EOF
 
-[ -d "$HOME/.local/" ] ||  mkdir "$HOME/.local/"
-[ -d "$HOME/.local/bin/" ] ||  mkdir "$HOME/.local/bin/"
-[ -d "$HOME/.local/lib/" ] || mkdir "$HOME/.local/lib/"
-[ -d "$HOME/.local/include/" ] ||  mkdir "$HOME/.local/include/"
+#sudo cp "$HOME/.venv/src/lkars-config/fbcpd.service" /etc/systemd/system/
+}
 
-echo "........................................."
-echo " system envoroment complete "  |  whiptail --infobox "system envoroment complete...." 20 66;
-echo "........................................."
+get_src
 
-
-[ ! -d "$HOME/.local/include/fbcp-ili9341" ] && cd "$HOME/.local/include/" && git clone https://github.com/juj/fbcp-ili9341
-#[ ! -d "$HOME/.local/include/fbcp-ili9341" ] && cd "$HOME/.local/include/" && git clone https://github.com/Tearran/fbcp-ili9341.git
-[ -d "$HOME/.local/include/fbcp-ili9341/build" ] || cd "$HOME/.local/include/fbcp-ili9341" && mkdir build
-
-echo "........................................."
-echo " Framebuffer Copy source Downloaded"   |  whiptail --infobox "Framebuffer Copy source Downloaded...." 20 66;
-echo "........................................."
-
-tput cup 0 100  |  whiptail --infobox "Setting Display up...." 20 66;
-[ -d "$HOME/.local/include/fbcp-ili9341/build/" ] && cd "$HOME/.local/include/fbcp-ili9341/build/" || exit 1
-#[ -d "$HOME/.local/include/fbcp-ili9341/build/" ] && cmake -Wno-dev -DST7735R=ON -DGPIO_TFT_BACKLIGHT=18 -DGPIO_TFT_RESET_PIN=24 -DGPIO_TFT_DATA_CONTROL=23 -DSPI_BUS_CLOCK_DIVISOR=8 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF ..
-#[ -d "$HOME/.local/include/fbcp-ili9341/build/" ] && cd "$HOME/.local/include/fbcp-ili9341/build/" && make -j
-#[ ! -f "/usr/bin/fbcp"  ] &&  sudo cp "$HOME/.local/include/fbcp-ili9341/build/fbcp-ili9341" "/usr/bin/fbcp"
-#sudo cp "$HOME/.local/include/picorder-config/include/fbcpd.service" /etc/systemd/system/fbcpd.service ;
-#sudo systemctl enable fbcpd ;
-#sudo systemctl stop fbcpd ; tput cup 0 100
-#sudo systemctl start fbcpd ; tput cup 0 100  |  whiptail --infobox "Display server set...." 20 66;
+build_fbcp
