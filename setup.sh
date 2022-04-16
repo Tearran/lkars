@@ -9,7 +9,7 @@ get_src(){
 ( [ ! -d "$HOME/.venv/src/led-shim/" ] &&  git clone https://github.com/pimoroni/led-shim.git "$HOME/.venv/src/led-shim" || echo "pass" )
 ( [ ! -d "$HOME/.venv/src/sense_hat_demo/" ] && git clone https://github.com/Tearran/sense_hat_demo.git "$HOME/.venv/src/sense_hat_demo" || echo "pass" )
 ( [ -d "$HOME/.venv/" ] && python3 -m venv .venv )  ||  ( echo "venv activate error" )
-( source "$HOME/.venv/bin/activate" || echo "venv activate error" )
+#( source "$HOME/.venv/bin/activate" || echo "venv activate error" )
 }
 
 build_fbcp(){
@@ -41,4 +41,4 @@ EOF
 
 get_src
 
-build_fbcp
+#build_fbcp
