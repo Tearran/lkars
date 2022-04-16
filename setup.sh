@@ -14,7 +14,7 @@ get_src(){
 
 build_fbcp(){
 ( [ ! -d "$HOME/.venv/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$HOME/.venv/src/fbcp" || echo "pass" )
-( [ ! -f /usr/bin/cmake ] && sudo apt install camke ) || ( echo "cmake installed" )
+( [ ! -f /usr/bin/cmake ] && sudo apt install camke -y ) || ( echo "cmake installed" )
 ( [ -d "$HOME/.venv/src/fbcp/" ] && mkdir "$HOME/.venv/src/fbcp/build" ) && ( cd "$HOME/.venv/src/fbcp/build/" && cmake -Wno-dev -DST7735S=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
 #( [ -d "$HOME/.venv/src/fbcp/" ] && mkdir "$HOME/.venv/src/fbcp/build" ) && ( cd "$HOME/.venv/src/fbcp/build/" && cmake -Wno-dev -DST7735R=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
 #( [ -d "$HOME/.venv/src/fbcp/" ] && mkdir "$HOME/.venv/src/fbcp/build" ) && ( cd "$HOME/.venv/src/fbcp/build/" && cmake -Wno-dev -DPIRATE_AUDIO_ST7789_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DUSE_DMA_TRANSFERS=OFF -DSTATISTICS=0 .. )
@@ -41,4 +41,4 @@ EOF
 
 get_src
 
-#build_fbcp
+build_fbcp
