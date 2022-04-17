@@ -141,13 +141,13 @@ clear
 cd "$HOME" || return
 # Uncomment next line to keep bash history ( helpfull for bash dev )
 ( [ -f "$HOME/.bash_logout" ] &&  mv "$HOME/.bash_logout" "$HOME/.bash_logout-back" || echo ".bash_logout-back, No action needed." )
-clear
+
 [[ "$(read -e -p 'Update apt info? [y/N]> '; echo $REPLY)" == [Yy]* ]] && sudo apt-get update || echo Passing
-clear
+
 [[ "$(read -e -p 'Download Source? [y/N]> '; echo $REPLY)" == [Yy]* ]] && get_src || echo Passing
-clear
+
 [[ "$(read -e -p 'Set virtual environment? [y/N]> '; echo $REPLY)" == [Yy]* ]] && set_vertenv || echo Passing
-clear
+
 ( [[ "$(read -e -p 'Build Frame Buffer copy (fbcp)? [y/N]> '; echo $REPLY)" == [Yy]* ]] && build_fbcp ) && ( cd "$HOME/.lkars/" && fbcp_bootconfig ) || echo Passing
 
 #[[ "$(read -e -p 'Reboot? [y/N]> '; echo $REPLY)" == [Yy]* ]] && sudo reboot || echo "Reboot to complete"
