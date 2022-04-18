@@ -1,2 +1,2 @@
-# lkars-config
-Linux Kernel to Access Record Sensor data
+# lkars
+Linux Kernel Access Record Sensor data
