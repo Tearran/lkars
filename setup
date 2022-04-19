@@ -173,7 +173,7 @@ echo "Framebuffer copy, Configuration complete!"
 
 }
 
-set_samba{
+set_samba(){
 sudo apt install -y samba
 echo "change workgroup name"
 #add sed
