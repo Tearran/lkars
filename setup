@@ -62,7 +62,7 @@ build_waveshare_fbcp(){
   ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/bin/fbcp" || echo "error cp /bin/fbcp" )
 }
 
-fbcpd_systemctl()
+fbcpd_systemctl(){
 cat <<EOF > "$LKARS/src/lkars/fbcpd.service"
 [Unit]
 Description=Starts Frambuffer copy
