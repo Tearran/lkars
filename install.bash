@@ -15,6 +15,4 @@ L KARS="$HOME/.local"
 # cp lkars-config to virtual environment bin/
 ( [   -f "$LKARS/src/lkars/lkars-config" ]  && chmod +x  "$LKARS/src/lkars/lkars-config" ) && ( [  ! -f "$LKARS/bin/lkars-config" ] && cp "$LKARS/src/lkars/lkars-config" "$LKARS/bin/" )
 # launch lkars config
-lkars-config
-
-
+$LKARS/bin/lkars-config
