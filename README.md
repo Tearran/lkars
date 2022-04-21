@@ -9,5 +9,5 @@ instructions avalible at https://www.raspberrypi.com/software/
 
 update apt repo with:
 ```bash
-sudo apt update && curl https://raw.githubusercontent.com/Tearran/lkars/master/setup.sh | bash
+sudo apt update && curl https://raw.githubusercontent.com/Tearran/lkars/master/install.bash | bash
 ```
