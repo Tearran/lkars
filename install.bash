@@ -14,5 +14,7 @@ L KARS="$HOME/.local"
 ( [   -f "$LKARS/bin/activate" ] && source "$LKARS/bin/activate" ) || ( echo "venv activate error" )
 # cp lkars-config to virtual environment bin/
 ( [   -f "$LKARS/src/lkars/lkars-config" ]  && chmod +x  "$LKARS/src/lkars/lkars-config" ) && ( [  ! -f "$LKARS/bin/lkars-config" ] && cp "$LKARS/src/lkars/lkars-config" "$LKARS/bin/" )
-
+# launch lkars config
 lkars-config
+
+
