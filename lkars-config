@@ -2,7 +2,7 @@
 # lkars-config
 
 LKARS="$HOME/.local"
-source "$LKARS/src/lkars/lkars-lib"
+source "$LKARS/src/lkars/liblkars-1"
 
 menu_main(){
   item="item"
