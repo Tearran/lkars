@@ -2,7 +2,7 @@
 
 # "$HOME/.local/src/lkars/lkars-config"
 
-L KARS="$HOME/.local"
+LKARS="$HOME/.local"
 #Check if git is install if not install it
 ( git --version || sudo apt install git -y )
 #Check if source files exist if not download
