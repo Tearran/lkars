@@ -2,7 +2,7 @@
 # lkars-config
 
 LKARS="$HOME/.local"
-source "$LKARS/src/lkars/setup"
+source "$LKARS/src/lkars/lkars-lib"
 
 menu_main(){
   item="item"
@@ -37,7 +37,6 @@ menu_apps(){
       esac
       return 0
 }
-
 
 while true ;
  do
