@@ -1,6 +1,24 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-LKARS="$HOME/.lkars"
+{
+theme="dark:0" # Theme setting dark comment to enable system colors
+
+if [ $theme = "dark:0" ]; then
+  export NEWT_COLORS='
+    root=white,black
+    window=white,black
+    textbox=white,black
+    title=white,black
+    listbox=white,black
+    sellistbox=black,yellow
+    actsellistbox=black,yellow
+    border=blue,black
+    actbutton=black,green
+    '
+fi
+}
+
+LKARS="$HOME/.local"
 #Download source files
 get_src(){
   ( git --version || sudo apt install git )
@@ -13,10 +31,9 @@ get_src(){
 # Set up virtual environment?
 set_vertenv(){
 
-  ( [   -d "$LKARS/" ] && python3 -m venv .lkars )  ||  ( sudo apt-get install python3-venv &&  python3 -m venv .lkars )
+  ( [   -d "$LKARS/" ] && python3 -m venv "$LKARS" )  ||  ( sudo apt-get install python3-venv &&  python3 -m venv "$LKARS" )
   ( [   -f "$LKARS/bin/activate" ] && source "$LKARS/bin/activate" || echo "venv activate error" )
 }
-
 
 luma_display(){
   ( [ ! -d "$LKARS/src/luma.examples/" ]  && git clone https://github.com/rm-hull/luma.examples.git "$LKARS/src/luma.examples" || echo "pass" )
@@ -80,7 +97,7 @@ EOF
   sudo cp "$LKARS/src/lkars/fbcpd.service" /etc/systemd/system/ ;
   sudo systemctl enable fbcpd.service ;
   sudo systemctl start fbcpd.service ;
-  #echo sudo systemctl stop fbcpd.service ;
+
 }
 
 default_bootconfig(){
@@ -154,7 +171,7 @@ dtparam=audio=off
 #Remove black border
 #disable_overscan=1
 #fbcp settings 128x160 60hz
-display_rotate=1
+#display_rotate=1
 hdmi_group=2
 hdmi_mode=87
 hdmi_cvt=160 128 60 1 0 0 0
@@ -201,4 +218,3 @@ fbcpd_systemctl
 ( [[ "$(read -e -p 'Reboot? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && sudo reboot ) || echo "Reboot to complete"
 }
 
-main
