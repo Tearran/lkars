@@ -1,8 +1,7 @@
 #!/bin/bash
 # lkars-config
 
-LKARS="$HOME/.local"
-source "$LKARS/src/lkars/liblkars-1"
+source "/usr/lib/liblkars-1"
 
 menu_main(){
   item="item"
