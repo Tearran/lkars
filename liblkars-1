@@ -24,7 +24,6 @@ get_src(){
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/lkars/" ]   && git clone https://github.com/Tearran/lkars.git "$LKARS/src/lkars" || echo "pass" )
   ( [ ! -d "$LKARS/src/python_skelly/" ]  && git clone https://github.com/Tearran/python_skelly.git "$LKARS/src/python_skelly" || echo "pass" )
-  ( [ ! -d "$LKARS/src/led-shim/" ]       && git clone https://github.com/pimoroni/led-shim.git "$LKARS/src/led-shim" || echo "pass" )
   ( [ ! -d "$LKARS/src/sense_hat_demo/" ] && git clone https://github.com/Tearran/sense_hat_demo.git "$LKARS/src/sense_hat_demo" || echo "pass" )
 }
 #sudo apt install python3 python3-pip python3-pil libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7 libtiff5 -y
@@ -163,7 +162,39 @@ echo "Restore Complete!"
 
 }
 
-fbcp_bootconfig(){
+240x240_bootconfig(){
+cat << OSEOF > $LKARS/src/lkars/config.txt
+disable_overscan=1
+framebuffer_width=240
+framebuffer_height=240
+hdmi_force_hotplug=1
+
+# Uncomment some or all of these to enable the optional hardware interfaces
+dtparam=i2c_arm=on
+dtparam=i2s=on
+#dtparam=spi=on
+
+# Additional overlays and parameters are documented /boot/overlays/README
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=off
+[pi4]
+# Enable DRM VC4 V3D driver on top of the dispmanx display stack
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
+
+[all]
+#dtoverlay=vc4-fkms-v3d
+
+OSEOF
+
+sudo cp --no-preserve=mode -f /boot/config.txt /boot/config.bak
+echo "Back up exitsing config"
+sudo cp --no-preserve=mode -f "$LKARS/src/lkars/config.txt" /boot/config.txt
+echo "Restore Complete!"
+
+}
+
+128x160_bootconfig(){
 cd "$LKARS/" || exit
 cat << OSEOF > "$LKARS/src/lkars/config.txt"
 # Enable audio (loads snd_bcm2835)
@@ -191,7 +222,7 @@ echo "Framebuffer copy, Configuration complete!"
 }
 
 set_samba(){
-sudo apt install -y samba
+sudo apt install samba -y
 echo "change workgroup name"
 #add sed
 sudo nano /etc/samba/smb.conf
@@ -217,4 +248,3 @@ fbcpd_systemctl
 ( [[ "$(read -e -p 'Frame Buffer copy Boot? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && fbcp_bootconfig )
 ( [[ "$(read -e -p 'Reboot? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && sudo reboot ) || echo "Reboot to complete"
 }
-
