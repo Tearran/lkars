@@ -1,23 +1,26 @@
 #!/bin/bash
 # lkars-config
-
+clear
 source "/usr/lib/liblkars-1"
 
+TERM=ansi
+{
 theme="dark:0" # Theme setting dark comment to enable system colors
 
 if [ $theme = "dark:0" ]; then
   export NEWT_COLORS='
     root=white,black
     window=white,black
-    textbox=green,black
-    title=green,black
-    listbox=yellow,black
-    sellistbox=black,green
+    textbox=white,black
+    title=white,black
+    listbox=white,black
+    sellistbox=black,yellow
     actsellistbox=black,yellow
     border=blue,black
     actbutton=black,green
     '
 fi
+}
 
 menu_main(){
   item="item"
