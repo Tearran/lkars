@@ -7,7 +7,7 @@ fresh install of raberry pi os
 
 instructions avalible at https://www.raspberrypi.com/software/
 
-update apt repo with:
+Install with the following:
 ```bash
-sudo apt update && curl https://raw.githubusercontent.com/Tearran/lkars/master/install.bash | bash
+sudo apt update && curl https://raw.githubusercontent.com/Tearran/lkars/master/install.bash | sudo bash
 ```
