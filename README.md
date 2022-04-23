@@ -7,7 +7,7 @@ fresh install of raberry pi os
 
 instructions avalible at https://www.raspberrypi.com/software/
 
-run apt update
+run `sudo apt update`
 
 Install with the following:
 ```bash
