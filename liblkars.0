@@ -1,9 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
+LKARSTHEME="dark" # Theme setting dark comment to enable system colors
+LKARS="$HOME/.local"
 {
-theme="dark:0" # Theme setting dark comment to enable system colors
 
-if [ $theme = "dark:0" ]; then
+if [ $LKARSTHEME = "dark" ]; then
   export NEWT_COLORS='
     root=white,black
     window=white,black
@@ -16,16 +17,23 @@ if [ $theme = "dark:0" ]; then
     actbutton=black,green
     '
 fi
+
 }
 
-LKARS="$HOME/.local"
 #Download source files
 get_src(){
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/lkars/" ]   && git clone https://github.com/Tearran/lkars.git "$LKARS/src/lkars" || echo "pass" )
+}
+
+git_python_skelly(){
   ( [ ! -d "$LKARS/src/python_skelly/" ]  && git clone https://github.com/Tearran/python_skelly.git "$LKARS/src/python_skelly" || echo "pass" )
+}
+
+git_sense_hat_demo(){
   ( [ ! -d "$LKARS/src/sense_hat_demo/" ] && git clone https://github.com/Tearran/sense_hat_demo.git "$LKARS/src/sense_hat_demo" || echo "pass" )
 }
+
 #sudo apt install python3 python3-pip python3-pil libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7 libtiff5 -y
 # Set up virtual environment?
 set_vertenv(){
@@ -38,19 +46,14 @@ luma_display(){
   ( [ ! -d "$LKARS/src/luma.examples/" ]  && git clone https://github.com/rm-hull/luma.examples.git "$LKARS/src/luma.examples" || echo "pass" )
 }
 
-# Build Frame Buffer copy (fbcp)
 build_pirate_audio_fbcp(){
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
   ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
-#( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DST7735SW=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
-#( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DST7735R=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
   ( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DPIRATE_AUDIO_ST7789_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DUSE_DMA_TRANSFERS=OFF -DSTATISTICS=0 .. )
-#( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DWAVESHARE_ST7789VW_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DUSE_DMA_TRANSFERS=OFF -DSTATISTICS=0 .. )
   ( cd "$LKARS/src/fbcp/build/" && make -j )
   ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/usr/bin/fbcp" || echo "error cp bin/fbcp" )
 }
-
 build_st7735sw_fbcp(){
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
@@ -231,20 +234,51 @@ sudo smbpasswd -a alpha
 sudo service smbd restart
 }
 
-main(){
-clear
-cd "$HOME" || return
-# Uncomment next line to keep bash history ( helpfull for bash dev )
-( [ -f "$LKARS/.bash_logout" ] &&  mv "$HOME/.bash_logout" "$HOME/.bash_logout-back" || echo ".bash_logout-back, No action needed." )
-
-[[ "$(read -e -p 'Update apt info? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && sudo apt-get update || echo Passing
-
-[[ "$(read -e -p 'Download Source? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && get_src || echo Passing
-
-[[ "$(read -e -p 'Set virtual environment? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && set_vertenv || echo Passing
-
-( [[ "$(read -e -p 'Build Frame Buffer copy (fbcp)? [y/N]> '; echo "$REPLY")" == [Yy]* ]] &&  build_st7735sw_fbcp ) || echo Passing
-fbcpd_systemctl
-( [[ "$(read -e -p 'Frame Buffer copy Boot? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && fbcp_bootconfig )
-( [[ "$(read -e -p 'Reboot? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && sudo reboot ) || echo "Reboot to complete"
+pyapp_skelly(){
+    
+    appname="skelly"
+    zip temp.zip *
+    echo '#!/usr/bin/env python3' | cat - temp.zip > $appname
+    chmod +x $appname
+    #sudo cp $appname /usr/bin/
 }
+
+iic_get_list(){
+{
+## Working pipe for iic
+## iic-get 
+iic_hexdress=$( ( iic-get 1 ) | sed -z "s/\n//g" ) 
+} | whiptail --title "Example Dialog" --msgbox "$iic_hexdress" 8 78
+}
+
+
+###### main dev 
+
+  main(){
+
+    clear
+    cd "$HOME" || return
+    # Uncomment next line to keep bash history ( helpfull for bash dev )
+    ( [ -f "$LKARS/.bash_logout" ] &&  mv "$HOME/.bash_logout" "$HOME/.bash_logout-back" || echo ".bash_logout-back, No action needed." )
+
+    [[ "$(read -e -p 'Update apt info? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && sudo apt-get update || echo Passing
+
+    [[ "$(read -e -p 'Download Source? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && get_src || echo Passing
+
+    [[ "$(read -e -p 'Set virtual environment? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && set_vertenv || echo Passing
+
+    ( [[ "$(read -e -p 'Build Frame Buffer copy (fbcp)? [y/N]> '; echo "$REPLY")" == [Yy]* ]] &&  build_st7735sw_fbcp ) || echo Passing ; fbcpd_systemctl
+
+    ( [[ "$(read -e -p 'Frame Buffer copy Boot? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && fbcp_bootconfig )
+
+    ( [[ "$(read -e -p 'Reboot? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && sudo reboot ) || echo "Reboot to complete"
+
+}
+
+
+
+## Dev
+SCRIPT_PATH=${0%/*}
+if [ "$0" != "$SCRIPT_PATH" ] && [ "$SCRIPT_PATH" != "" ]; then 
+    main
+fi
