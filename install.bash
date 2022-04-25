@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 {
-theme="dark:0" # Theme setting dark comment to enable system colors
+theme="dark" # Theme setting dark comment to enable system colors
 
-if [ $theme = "dark:0" ]; then
+if [ $theme = "dark" ]; then
   export NEWT_COLORS='
     root=white,black
     window=white,black
@@ -21,11 +21,14 @@ cd /tmp/ || return
 wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars.0 &> wget.log
 sudo cp liblkars.0 /usr/lib/
 }
-
 {
 wget https://raw.githubusercontent.com/Tearran/lkars/master/lkars-config &> wget.log
 sudo cp lkars-config /usr/bin/
-sudo chmod +x  /usr/bin/lkars-config
+sudo chmod +x /usr/bin/lkars-config
 }
-
+{
+wget https://github.com/Tearran/iic-scanner/raw/main/iic-scanner
+sudo cp iic-scanner /usr/bin/
+sudo chmod +x /usr/bin/iic-scanner
+}
 ( /usr/bin/lkars-config )
