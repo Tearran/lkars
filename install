@@ -1,19 +1,5 @@
-#!/usr/bin/bash
-{
-export NEWT_COLORS='
-root=white,black
-window=white,black
-textbox=green,black
-title=green,black
-listbox=yellow,black
-sellistbox=black,green
-actsellistbox=black,yellow
-border=blue,black
-actbutton=black,green
-'
-}
-
 #!/bin/bash
+
 install()
 {
 dir="/tmp/"
@@ -28,7 +14,6 @@ cd $dir || exit
 [ -f /tmp/lkars-master/lkars-config ] && ( sudo cp lkars-config /usr/bin/ ||  exit )
 [ -f /tmp/lkars-master/iic-scanner ] && ( sudo cp iic-scanner /usr/bin/ ||  exit )
 echo "install complete!"
-
 }
 
 uninstall()
@@ -73,16 +58,11 @@ if [[ $# -eq 0 ]] ; then
     exit 1
 fi
 
-while getopts ":hviud" opt; do
+while getopts ":viud" opt; do
    case $opt in
-      h) Help break ;;      
-      v) Vers break ;;
-      i) install break ;;
-      u) uninstall break ;;
-      ?) Help break ;;
+      v) Vers exit ;;
+      i) install exit ;;
+      u) uninstall exit ;;
+      ?) Help exit ;;
    esac
-exit
 done
-
-
-/usr/bin/lkars-config
