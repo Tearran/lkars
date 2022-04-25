@@ -260,6 +260,5 @@ fbcpd_systemctl
 }
 
 
-fun_csv=$( grep ".*(){" "/home/alpha/lkars/lib/liblkars.0" | sed -z 's|(){| |g;s|\n|,|g;s|,$|\n|' )
-
-echo fun_csv
+#fun_csv=$( grep ".*(){" "/home/alpha/lkars/lib/liblkars.0" | sed -z 's|(){| |g;s|\n|,|g;s|,$|\n|' )
+#echo fun_csv
