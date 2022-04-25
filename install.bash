@@ -1,9 +1,7 @@
 #!/usr/bin/bash
-{
-theme="dark" # Theme setting dark comment to enable system colors
 
-if [ $theme = "dark" ]; then
-  export NEWT_COLORS='
+{
+export NEWT_COLORS='
     root=white,black
     window=white,black
     textbox=green,black
