@@ -11,5 +11,5 @@ run `sudo apt update`
 
 Install with the following:
 ```bash
-curl https://raw.githubusercontent.com/Tearran/lkars/master/install.bash | sudo bash
+wget https://raw.githubusercontent.com/Tearran/lkars/master/install ; bash install
 ```
