@@ -1,19 +1,20 @@
 #!/bin/bash
-
 install()
 {
-dir="/tmp/"
+dir="/tmp"
 cd $dir || exit 
 wget https://github.com/Tearran/lkars/archive/refs/heads/master.zip
-[ -f /tmp/master.zip ] && file="/tmp/master.zip"
+[ -f $dir/master.zip ] && file="$dir/master.zip"
 unzip -o $file
-[ -d /tmp/lkars-master/ ] && dir="/tmp/lkars-master/"  
+[ -d $dir/lkars-master/ ] && dir="$dir/lkars-master/"  
 cd $dir || exit 
-[ -d /tmp/lkars-master/ ] && sudo chmod +x /$dir* 
-[ -f /tmp/lkars-master/liblkars.0 ] && ( sudo cp liblkars.0 /usr/lib/ ||  exit )
-[ -f /tmp/lkars-master/lkars-config ] && ( sudo cp lkars-config /usr/bin/ ||  exit )
-[ -f /tmp/lkars-master/iic-scanner ] && ( sudo cp iic-scanner /usr/bin/ ||  exit )
+[ -d $dir/lkars-master/ ] && sudo chmod +x /$dir* 
+[ -f $dir/lkars-master/liblkars.0 ] && ( sudo cp liblkars.0 /usr/lib/ ||  exit )
+[ -f $dir/lkars-master/lkars-config ] && ( sudo cp lkars-config /usr/bin/ ||  exit )
+[ ! -f $dir/lkars-master/iic-scanner ] && wget https://github.com/Tearran/iic-scanner/raw/main/iic-scanner
+[ -f $dir/lkars-master/iic-scanner ] && ( sudo cp iic-scanner /usr/bin/ ||  exit )
 echo "install complete!"
+
 }
 
 uninstall()
@@ -58,11 +59,13 @@ if [[ $# -eq 0 ]] ; then
     exit 1
 fi
 
-while getopts ":viud" opt; do
+while getopts ":hviud" opt; do
    case $opt in
-      v) Vers exit ;;
-      i) install exit ;;
-      u) uninstall exit ;;
-      ?) Help exit ;;
+      h) Help break ;;      
+      v) Vers break ;;
+      i) install break ;;
+      u) uninstall break ;;
+      ?) Help break ;;
    esac
+exit
 done
