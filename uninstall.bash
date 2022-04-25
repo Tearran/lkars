@@ -15,17 +15,17 @@ actbutton=black,green
 
 {
 cd /tmp/ || return
-sudo rm -f liblkars.0 /usr/lib/
+sudo rm -f  /usr/lib/liblkars.0
 }
 
 {
 
-sudo rm -f lkars-config /usr/bin/
+sudo rm -f  /usr/bin/lkars-config
 
 }
 
 {
-sudo rm -f iic-scanner /usr/bin/
+sudo rm -f  /usr/bin/iic-scanner
 
 }
 
