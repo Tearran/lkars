@@ -1,19 +1,22 @@
 #!/bin/bash
+# Lkcars Installer
+
 install()
 {
+
 dir="/tmp"
-cd $dir || exit 
-wget https://github.com/Tearran/lkars/archive/refs/heads/master.zip
-[ -f $dir/master.zip ] && file="$dir/master.zip"
-unzip -o $file
-[ -d $dir/lkars-master/ ] && dir="$dir/lkars-master/"  
-cd $dir || exit 
-[ -d $dir/lkars-master/ ] && sudo chmod +x /$dir* 
-[ -f $dir/lkars-master/liblkars.0 ] && ( sudo cp liblkars.0 /usr/lib/ ||  exit )
-[ -f $dir/lkars-master/lkars-config ] && ( sudo cp lkars-config /usr/bin/ ||  exit )
-[ ! -f $dir/lkars-master/iic-scanner ] && wget https://github.com/Tearran/iic-scanner/raw/main/iic-scanner
-[ -f $dir/lkars-master/iic-scanner ] && ( sudo cp iic-scanner /usr/bin/ ||  exit )
-echo "install complete!"
+cd $dir  || return
+
+wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars.0
+sudo cp liblkars.0 /usr/lib/
+
+wget https://raw.githubusercontent.com/Tearran/lkars/master/lkars-config
+sudo cp lkars-config /usr/bin/
+sudo chmod +x /usr/bin/lkars-config
+
+wget https://github.com/Tearran/iic-scanner/raw/main/iic-scanner
+sudo cp iic-scanner /usr/bin/
+sudo chmod +x /usr/bin/iic-scanner
 
 }
 
@@ -29,33 +32,39 @@ echo "uninstall complete!"
 
 dev()
 {
+
 echo
 echo "TODO"
 echo
+
 }
 
 Vers()
 {
+
    echo "LKARS Installer."
    echo
    echo "Software version: pre-Alpha."
    echo
+
 }
 
 Help()
 {
+
    echo "LKARS Installer."
    echo
    echo "Syntax:  [-hviu]"
    echo "Options:"
-   echo "i     Install lkars-config"
-   echo "u     Uninstall lkars-config"
-   echo "h     Print this Help."
-   echo "v     Print Version info."
+   echo "-i     Install lkars-config"
+   echo "-u     Uninstall lkars-config"
+   echo "-h     Print this Help."
+   echo "-v     Print Version info."
+
 }
 
 if [[ $# -eq 0 ]] ; then
-    Help
+    install
     exit 1
 fi
 
