@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/tearran/lkars/badge)](https://www.codefactor.io/repository/github/tearran/lkars)
+
 # lkars
 Linux Kernel Access Record Sensor data
 
