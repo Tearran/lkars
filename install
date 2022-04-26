@@ -7,7 +7,7 @@ install()
 dir="/tmp"
 cd $dir  || return
 
-wget https://github.com/Tearran/lkars/edit/master/liblkars
+wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars
 sudo cp liblkars /usr/lib/
 
 wget https://raw.githubusercontent.com/Tearran/lkars/master/lkars-config
@@ -70,7 +70,7 @@ fi
 
 while getopts ":hviud" opt; do
    case $opt in
-      h) Help break ;;      
+      h) Help break ;;
       v) Vers break ;;
       i) install break ;;
       u) uninstall break ;;
