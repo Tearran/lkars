@@ -241,6 +241,11 @@ sudo smbpasswd -a alpha
 sudo service smbd restart
 }
 
+rem_samba(){
+sudo apt-get purge samba 
+sudo rm -rf /etc/samba/ /etc/default/samba
+}
+
 main(){
 clear
 cd "$HOME" || return
