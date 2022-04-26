@@ -7,7 +7,7 @@ if [ $theme = "dark" ]; then
     root=white,black
     window=white,black
     textbox=yellow,black
-    acttextbox=black,yellow  
+    acttextbox=black,yellow
     title=green,black
     listbox=yellow,black
     sellistbox=black,green
@@ -241,24 +241,6 @@ sudo service smbd restart
 }
 
 rem_samba(){
-sudo apt-get purge samba 
+sudo apt-get purge samba
 sudo rm -rf /etc/samba/ /etc/default/samba
-}
-
-main(){
-clear
-cd "$HOME" || return
-# Uncomment next line to keep bash history ( helpfull for bash dev )
-( [ -f "$LKARS/.bash_logout" ] &&  mv "$HOME/.bash_logout" "$HOME/.bash_logout-back" || echo ".bash_logout-back, No action needed." )
-
-[[ "$(read -e -p 'Update apt info? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && sudo apt-get update || echo Passing
-
-[[ "$(read -e -p 'Download Source? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && get_src || echo Passing
-
-[[ "$(read -e -p 'Set virtual environment? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && set_vertenv || echo Passing
-
-( [[ "$(read -e -p 'Build Frame Buffer copy (fbcp)? [y/N]> '; echo "$REPLY")" == [Yy]* ]] &&  build_st7735sw_fbcp ) || echo Passing
-fbcpd_systemctl
-( [[ "$(read -e -p 'Frame Buffer copy Boot? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && fbcp_bootconfig )
-( [[ "$(read -e -p 'Reboot? [y/N]> '; echo "$REPLY")" == [Yy]* ]] && sudo reboot ) || echo "Reboot to complete"
 }
