@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-
 theme="dark" # Theme setting dark comment to enable system colors
 
 if [ $theme = "dark" ]; then
-    export NEWT_COLORS='
+  export NEWT_COLORS='
     root=white,black
     window=white,black
     textbox=yellow,black
@@ -27,6 +26,7 @@ if [ $theme = "dark" ]; then
     '
 fi
 
+
 LKARS="$HOME/.local"
 #Download source files
 get_src(){
@@ -35,7 +35,6 @@ get_src(){
   ( [ ! -d "$LKARS/src/python_skelly/" ]  && git clone https://github.com/Tearran/python_skelly.git "$LKARS/src/python_skelly" || echo "pass" )
   ( [ ! -d "$LKARS/src/sense_hat_demo/" ] && git clone https://github.com/Tearran/sense_hat_demo.git "$LKARS/src/sense_hat_demo" || echo "pass" )
 }
-
 #sudo apt install python3 python3-pip python3-pil libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7 libtiff5 -y
 # Set up virtual environment?
 set_vertenv(){
@@ -53,7 +52,10 @@ build_pirate_audio_fbcp(){
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
   ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
+#( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DST7735SW=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
+#( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DST7735R=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
   ( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DPIRATE_AUDIO_ST7789_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DUSE_DMA_TRANSFERS=OFF -DSTATISTICS=0 .. )
+#( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DWAVESHARE_ST7789VW_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DUSE_DMA_TRANSFERS=OFF -DSTATISTICS=0 .. )
   ( cd "$LKARS/src/fbcp/build/" && make -j )
   ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/usr/bin/fbcp" || echo "error cp bin/fbcp" )
 }
