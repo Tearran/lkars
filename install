@@ -8,7 +8,7 @@ dir="/tmp"
 cd $dir  || return
 
 wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars.0
-sudo cp liblkars.0 /usr/lib/
+sudo cp liblkars /usr/lib/
 
 wget https://raw.githubusercontent.com/Tearran/lkars/master/lkars-config
 sudo cp lkars-config /usr/bin/
