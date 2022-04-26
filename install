@@ -23,7 +23,7 @@ sudo chmod +x /usr/bin/iic-scanner
 uninstall()
 {
 
-sudo rm -f  /usr/lib/liblkars.0
+sudo rm -f  /usr/lib/liblkars
 sudo rm -f  /usr/bin/lkars-config
 sudo rm -f  /usr/bin/iic-scanner
 echo "uninstall complete!"
