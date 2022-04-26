@@ -2,8 +2,8 @@
 # lkars-config
 
 clear
-source "/usr/lib/liblkars.0"
-[ ! -f /usr/lib/liblkars.0 ]  &&   echo "liblkars.0 NOT found"
+source "/usr/lib/liblkars"
+[ ! -f /usr/lib/liblkars ]  &&   echo "liblkars NOT found"
 
 
 menu_main(){
