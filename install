@@ -7,7 +7,7 @@ install()
 dir="/tmp"
 cd $dir  || return
 
-wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars.0
+wget https://github.com/Tearran/lkars/edit/master/liblkars
 sudo cp liblkars /usr/lib/
 
 wget https://raw.githubusercontent.com/Tearran/lkars/master/lkars-config
