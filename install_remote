@@ -1,0 +1,82 @@
+#!/bin/bash
+# Lkcars Installer
+
+install()
+{
+isInstalled="LKARS is installed uninstall first with install -u " ; [ -f /bin/lkars-config ] && echo "$isInstalled"
+
+dir="/tmp/build"
+mkdir $dir
+cd $dir  || return
+
+wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars
+sudo cp liblkars /usr/lib/
+
+wget https://raw.githubusercontent.com/Tearran/lkars/master/lkars-config
+sudo cp lkars-config /usr/bin/
+sudo chmod +x /usr/bin/lkars-config
+
+wget https://github.com/Tearran/iic-scanner/raw/main/iic-scanner
+sudo cp iic-scanner /usr/bin/
+sudo chmod +x /usr/bin/iic-scanner
+
+}
+
+uninstall()
+{
+
+sudo rm -f  /usr/lib/liblkars
+sudo rm -f  /usr/bin/lkars-config
+sudo rm -f  /usr/bin/iic-scanner
+echo "uninstall complete!"
+
+}
+
+dev()
+{
+
+echo
+echo "TODO"
+echo
+
+}
+
+vers()
+{
+
+   echo "LKARS Installer."
+   echo
+   echo "Software version: pre-Alpha."
+   echo
+
+}
+
+help()
+{
+
+   echo "LKARS Installer."
+   echo
+   echo "Syntax:  [-h|-v|-i|-u]"
+   echo "Options:"
+   echo "-i     Install lkars-config"
+   echo "-u     Uninstall lkars-config"
+   echo "-h     Print this help."
+   echo "-v     Print version info."
+
+}
+
+if [[ $# -eq 0 ]] ; then
+    install
+    exit 1
+fi
+
+while getopts ":hviud" opt; do
+   case $opt in
+      h) help break ;;
+      v) vers break ;;
+      i) install break ;;
+      u) uninstall break ;;
+      ?) help break ;;
+   esac
+exit
+done
