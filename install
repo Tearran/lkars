@@ -17,27 +17,31 @@ installlkars()
   sudo install -b -v iic-scanner /usr/bin/
 }
 
-  uninstall(){
-    sudo rm -f  /usr/lib/liblkars
-    sudo rm -f  /usr/bin/lkars-config
-    sudo rm -f  /usr/bin/iic-scanner
-    echo "uninstall complete!"
-    }
+uninstall()
+{
+  sudo rm -f  /usr/lib/liblkars
+  sudo rm -f  /usr/bin/lkars-config
+  sudo rm -f  /usr/bin/iic-scanner
+  echo "uninstall complete!"
+}
 
-dev(){
+dev()
+{
   echo
   echo "TODO"
   echo
 }
 
-vers(){
+vers()
+{
    echo "LKARS Installer."
    echo
    echo "Software version: pre-Alpha."
    echo
 }
 
-help(){
+help()
+{
    echo "LKARS Installer."
    echo
    echo "Syntax:  [-h|-v|-i|-u]"
