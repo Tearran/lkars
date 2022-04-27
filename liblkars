@@ -12,10 +12,10 @@ if [ $theme = "dark" ]; then
     listbox=yellow,black
     sellistbox=black,green
     actsellistbox=yellow,blue
-    border=blue,black
+    border=black,black
     actbutton=black,green
     compactbutton=brightgreen,black
-    border=black,black
+    border=brightblue,black
     shadow=white,black
     button=black,blue
     actbutton=black,green
@@ -29,17 +29,27 @@ fi
 
 LKARS="$HOME/.local"
 #Download source files
+get_bin(){
+
+  [[ $1 == "iic-scanner" ]] && ( [ ! -f /usr/bin/iic-scanner ] && wget -nv https://github.com/Tearran/iic-scanner/raw/main/iic-scanner -O iic-scanner ) ;   sudo install -b -v iic-scanner /usr/bin/
+  [[ $1 == "lkars" ]] && ( [ ! -f /usr/bin/lkars ] && wget -nv https://github.com/Tearran/iic-scanner/raw/main/iic-scanner -O iic-scanner ) ;   sudo install -b -v iic-scanner /usr/bin/
+
+}
+
 get_src()
 {
   ( git --version || sudo apt install git )
-  ( [ ! -d "$LKARS/src/lkars/" ]   && git clone https://github.com/Tearran/lkars.git "$LKARS/src/lkars" || echo "pass" )
-  ( [ ! -d "$LKARS/src/python_skelly/" ]  && git clone https://github.com/Tearran/python_skelly.git "$LKARS/src/python_skelly" || echo "pass" )
-  ( [ ! -d "$LKARS/src/sense_hat_demo/" ] && git clone https://github.com/Tearran/sense_hat_demo.git "$LKARS/src/sense_hat_demo" || echo "pass" )
+  [[ $1 == "lkars" ]] && ( [ ! -d "$LKARS/src/lkars/" ]   && git clone https://github.com/Tearran/lkars.git "$LKARS/src/lkars" || echo "pass" )
+  [[ $1 == "python_skelly" ]] && ( [ ! -d "$LKARS/src/python_skelly/" ]  && git clone https://github.com/Tearran/python_skelly.git "$LKARS/src/python_skelly" || echo "pass" )
+  [[ $1 == "sense_hat_demo" ]] && ( [ ! -d "$LKARS/src/sense_hat_demo/" ] && git clone https://github.com/Tearran/sense_hat_demo.git "$LKARS/src/sense_hat_demo" || echo "pass" )
+  [[ $1 == "picorderOS" ]] && ( [ ! -d "$LKARS/src/picorderOS/" ] && git clone https://github.com/directive0/picorderOS.git "$LKARS/src/picorderOS" || echo "pass" )
+
 }
+
 #sudo apt install python3 python3-pip python3-pil libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7 libtiff5 -y
 # Set up virtual environment?
-set_vertenv(){
 
+set_vertenv(){
   ( [   -d "$LKARS/" ] && python3 -m venv "$LKARS" )  ||  ( sudo apt-get install python3-venv &&  python3 -m venv "$LKARS" )
   ( [   -f "$LKARS/bin/activate" ] && source "$LKARS/bin/activate" || echo "venv activate error" )
 }

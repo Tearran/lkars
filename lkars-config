@@ -1,14 +1,16 @@
 #!/bin/bash
 # lkars-config
-src="/.local/src/lkars/"
+
 clear
 
 if [  -f /usr/lib/liblkars ] ;
 then
 source "/usr/lib/liblkars"
 else
-source "$HOME$src/liblkars"
-echo "dev Mode"
+  srcdir="$(dirname $0)"
+  srcdir="$(cd $srcdir && pwd)"
+  source "$srcdir/liblkars"
+  echo "dev Mode"
 fi
 
 use_iic(){
@@ -62,12 +64,17 @@ menu_dev(){
 }
 
 menu_apps(){
-  menu=("LKARS" "Sorce code for LKARS" "picorderOS" "Sorce code for picorderOS")
+  menu=("LKARS" "Sorce code for LKARS" \
+  "picorderOS" "Sorce code for picorderOS" \
+  "sense_hat_demo" "8x8 matrix demo for the sence hat -python3"\
+  "python_skelly" "skelliton app for single file deplyment -python3")
   CHOICE=$( whiptail --title "LKARS Systems" --cancel-button Back --menu "Make your choice" $(stty size) 9 "${menu[@]}"  3>&2 2>&1 1>&3 )
 
       case "$CHOICE" in
-        "LKARS") get_src ;;
-        "picorderOS") get_src ;;
+        "LKARS") get_src lkars;;
+        "picorderOS") get_src picorderOS;;
+        "sense_hat_demo") get_src sense_hat_demo ;;
+        "python_skelly") get_src python_skelly ;;
       esac
       return 0
 }
