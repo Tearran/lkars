@@ -3,22 +3,18 @@
 
 install()
 {
-isInstalled="LKARS is installed uninstall first with install -u " ; [ -f /bin/lkars-config ] && echo "$isInstalled"
+  dir="/tmp/build"
+  [ ! -d $dir ] && mkdir $dir
+  cd $dir  || return 1
+  url=https://raw.githubusercontent.com/Tearran/lkars/master
+  wget -nv "$url/liblkars" -O $( basename "/liblkars" )
+  sudo install -b -v liblkars /usr/lib/
 
-dir="/tmp/build"
-mkdir $dir
-cd $dir  || return
+  wget -nv "$url/lkars-config" -O $( basename "/lkars-config" )
+  sudo install -b -v lkars-config /usr/bin/
 
-wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars
-sudo cp liblkars /usr/lib/
-
-wget https://raw.githubusercontent.com/Tearran/lkars/master/lkars-config
-sudo cp lkars-config /usr/bin/
-sudo chmod +x /usr/bin/lkars-config
-
-wget https://github.com/Tearran/iic-scanner/raw/main/iic-scanner
-sudo cp iic-scanner /usr/bin/
-sudo chmod +x /usr/bin/iic-scanner
+  wget -nv https://github.com/Tearran/iic-scanner/raw/main/iic-scanner -O iic-scanner
+  sudo install -b -v iic-scanner /usr/bin/
 
 }
 
