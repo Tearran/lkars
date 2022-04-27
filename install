@@ -3,8 +3,10 @@
 
 install()
 {
+isInstalled="LKARS is installed uninstall first with install -u " ; [ -f /bin/lkars-config ] && echo "$isInstalled"
 
-dir="/tmp"
+dir="/tmp/build"
+mkdir $dir
 cd $dir  || return
 
 wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars
@@ -39,7 +41,7 @@ echo
 
 }
 
-Vers()
+vers()
 {
 
    echo "LKARS Installer."
@@ -49,17 +51,17 @@ Vers()
 
 }
 
-Help()
+help()
 {
 
    echo "LKARS Installer."
    echo
-   echo "Syntax:  [-hviu]"
+   echo "Syntax:  [-h|-v|-i|-u]"
    echo "Options:"
    echo "-i     Install lkars-config"
    echo "-u     Uninstall lkars-config"
-   echo "-h     Print this Help."
-   echo "-v     Print Version info."
+   echo "-h     Print this help."
+   echo "-v     Print version info."
 
 }
 
@@ -70,11 +72,11 @@ fi
 
 while getopts ":hviud" opt; do
    case $opt in
-      h) Help break ;;
-      v) Vers break ;;
+      h) help break ;;
+      v) vers break ;;
       i) install break ;;
       u) uninstall break ;;
-      ?) Help break ;;
+      ?) help break ;;
    esac
 exit
 done
