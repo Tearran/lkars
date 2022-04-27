@@ -29,7 +29,8 @@ fi
 
 LKARS="$HOME/.local"
 #Download source files
-get_src(){
+get_src()
+{
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/lkars/" ]   && git clone https://github.com/Tearran/lkars.git "$LKARS/src/lkars" || echo "pass" )
   ( [ ! -d "$LKARS/src/python_skelly/" ]  && git clone https://github.com/Tearran/python_skelly.git "$LKARS/src/python_skelly" || echo "pass" )
@@ -43,12 +44,14 @@ set_vertenv(){
   ( [   -f "$LKARS/bin/activate" ] && source "$LKARS/bin/activate" || echo "venv activate error" )
 }
 
-luma_display(){
+luma_display()
+{
   ( [ ! -d "$LKARS/src/luma.examples/" ]  && git clone https://github.com/rm-hull/luma.examples.git "$LKARS/src/luma.examples" || echo "pass" )
 }
 
 # Build Frame Buffer copy (fbcp)
-build_pirate_audio_fbcp(){
+build_pirate_audio_fbcp()
+{
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
   ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
@@ -60,7 +63,8 @@ build_pirate_audio_fbcp(){
   ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/usr/bin/fbcp" || echo "error cp bin/fbcp" )
 }
 
-build_st7735sw_fbcp(){
+build_st7735sw_fbcp()
+{
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
   ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
@@ -69,7 +73,8 @@ build_st7735sw_fbcp(){
   ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/usr/bin/fbcp" || echo "error cp bin/fbcp" )
 }
 
-build_st7735r_fbcp(){
+build_st7735r_fbcp()
+{
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
   ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
@@ -78,7 +83,8 @@ build_st7735r_fbcp(){
   ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/usr/bin/fbcp" || echo "error cp bin/fbcp" )
 }
 
-build_waveshare_fbcp(){
+build_waveshare_fbcp()
+{
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
   ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
@@ -87,7 +93,8 @@ build_waveshare_fbcp(){
   ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/bin/fbcp" || echo "error cp /bin/fbcp" )
 }
 
-fbcpd_systemctl(){
+fbcpd_systemctl()
+{
 cat <<EOF > "$LKARS/src/lkars/fbcpd.service"
 [Unit]
 Description=Starts Frambuffer copy
@@ -108,7 +115,8 @@ EOF
 
 }
 
-default_bootconfig(){
+default_bootconfig()
+{
 cat << OSEOF > $LKARS/src/lkars/config.txt
 # For more options and information see
 # http://rpf.io/configtxt
@@ -171,7 +179,8 @@ echo "Restore Complete!"
 
 }
 
-240x240_bootconfig(){
+240x240_bootconfig()
+{
 cat << OSEOF > $LKARS/src/lkars/config.txt
 disable_overscan=1
 framebuffer_width=240
@@ -203,7 +212,8 @@ echo "Restore Complete!"
 
 }
 
-128x160_bootconfig(){
+128x160_bootconfig()
+{
 cd "$LKARS/" || exit
 cat << OSEOF > "$LKARS/src/lkars/config.txt"
 # Enable audio (loads snd_bcm2835)
@@ -230,7 +240,8 @@ echo "Framebuffer copy, Configuration complete!"
 
 }
 
-set_samba(){
+set_samba()
+{
 sudo apt install samba -y
 echo "change workgroup name"
 #add sed
@@ -240,7 +251,16 @@ sudo smbpasswd -a alpha
 sudo service smbd restart
 }
 
-rem_samba(){
+rem_samba()
+{
 sudo apt-get purge samba
 sudo rm -rf /etc/samba/ /etc/default/samba
+}
+#!/bin/bash
+
+
+use_iic()
+{
+i=$( iic-scanner 1 )
+return "$i"
 }
