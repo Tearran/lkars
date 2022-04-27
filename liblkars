@@ -261,6 +261,6 @@ sudo rm -rf /etc/samba/ /etc/default/samba
 
 use_iic()
 {
-i=$( iic-scanner 1 )
-return "$i"
+i=$( ls /dev/i2c* ) ;
+[[ $i != /dev/i2c-1 ]] && sudo raspi-config nonint do_i2c 0 ;
 }
