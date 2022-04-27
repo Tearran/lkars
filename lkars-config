@@ -1,13 +1,14 @@
 #!/bin/bash
 # lkars-config
-
+src="/.local/src/lkars/"
 clear
 
 if [  -f /usr/lib/liblkars ] ;
 then
 source "/usr/lib/liblkars"
 else
-source "/home/alpha/lkars/liblkars"
+source "$HOME$src/liblkars"
+echo "dev Mode"
 fi
 
 use_iic(){
@@ -52,21 +53,21 @@ menu_dev(){
   CHOICE=$( whiptail --title "LKARS Systems" --cancel-button Back --menu "Make your choice" $(stty size) 9 "${menu[@]}"  3>&2 2>&1 1>&3 )
       case "$CHOICE" in
         "1") menu_display;;
-        "2") set_vertenv ;;
-        "3") set_samba ;;
-        "4") menu_iic ;;
+        "2") menu_iic;;
+        "3") set_vertenv ;;
+        "4") set_samba ;;
         "5") get_src ;;
       esac
       return 0
 }
 
 menu_apps(){
-  menu=("1" "Download Source" )
+  menu=("LKARS" "Sorce code for LKARS" "picorderOS" "Sorce code for picorderOS")
   CHOICE=$( whiptail --title "LKARS Systems" --cancel-button Back --menu "Make your choice" $(stty size) 9 "${menu[@]}"  3>&2 2>&1 1>&3 )
 
       case "$CHOICE" in
-        "1") get_src ;;
-
+        "LKARS") get_src ;;
+        "picorderOS") get_src ;;
       esac
       return 0
 }
