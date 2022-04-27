@@ -53,7 +53,7 @@ help()
 }
 
 if [[ $# -eq 0 ]] ; then
-    install
+    installlkars
     exit 1
 fi
 
