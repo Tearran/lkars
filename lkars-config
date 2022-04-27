@@ -3,7 +3,7 @@
 
 clear
 
-if [  -f /usr/lib/liblkars1 ] ;
+if [  -f /usr/lib/liblkars ] ;
 then
 source "/usr/lib/liblkars"
 else
