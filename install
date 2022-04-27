@@ -1,14 +1,14 @@
 #!/bin/bash
 # Lkcars Installer
 
-install()
+installlkars()
 {
   dir="/tmp/build"
   [ ! -d $dir ] && mkdir $dir
   cd $dir  || return 1
   url=https://raw.githubusercontent.com/Tearran/lkars/master
   wget -nv "$url/liblkars" -O $( basename "/liblkars" )
-  sudo install -b -v liblkars /usr/lib/
+  ( sudo install -b -v liblkars /usr/lib/
 
   wget -nv "$url/lkars-config" -O $( basename "/lkars-config" )
   sudo install -b -v lkars-config /usr/bin/
@@ -70,7 +70,7 @@ while getopts ":hviud" opt; do
    case $opt in
       h) help break ;;
       v) vers break ;;
-      i) install break ;;
+      i) installlkars break ;;
       u) uninstall break ;;
       ?) help break ;;
    esac
