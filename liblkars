@@ -29,17 +29,16 @@ fi
 
 LKARS="$HOME/.local"
 #Download source files
-get_bin(){
-
+get_bin()
+{
   [[ $1 == "iic-scanner" ]] && ( [ ! -f /usr/bin/iic-scanner ] && wget -nv https://github.com/Tearran/iic-scanner/raw/main/iic-scanner -O iic-scanner ) ;   sudo install -b -v iic-scanner /usr/bin/
   [[ $1 == "lkars" ]] && ( [ ! -f /usr/bin/lkars ] && wget -nv https://github.com/Tearran/iic-scanner/raw/main/iic-scanner -O iic-scanner ) ;   sudo install -b -v iic-scanner /usr/bin/
-
 }
 
 get_src()
 {
   ( git --version || sudo apt install git )
-  [[ $1 == "lkars" ]] && ( [ ! -d "$LKARS/src/lkars/" ]   && git clone https://github.com/Tearran/lkars.git "$LKARS/src/lkars" || echo "pass" )
+  ( [ ! -d "$LKARS/src/lkars/" ] && git clone https://github.com/Tearran/lkars.git "$LKARS/src/lkars" || echo "LKARS src Exist" )
   [[ $1 == "python_skelly" ]] && ( [ ! -d "$LKARS/src/python_skelly/" ]  && git clone https://github.com/Tearran/python_skelly.git "$LKARS/src/python_skelly" || echo "pass" )
   [[ $1 == "sense_hat_demo" ]] && ( [ ! -d "$LKARS/src/sense_hat_demo/" ] && git clone https://github.com/Tearran/sense_hat_demo.git "$LKARS/src/sense_hat_demo" || echo "pass" )
   [[ $1 == "picorderOS" ]] && ( [ ! -d "$LKARS/src/picorderOS/" ] && git clone https://github.com/directive0/picorderOS.git "$LKARS/src/picorderOS" || echo "pass" )
