@@ -12,9 +12,6 @@ installlkars()
 
   wget -nv "$url/lkars-config" -O "$( basename "/lkars-config" )"
   sudo install -b -v lkars-config /usr/bin/
-
-  wget -nv https://github.com/Tearran/iic-scanner/raw/main/iic-scanner -O iic-scanner
-  sudo install -b -v iic-scanner /usr/bin/
 }
 
 uninstall()
