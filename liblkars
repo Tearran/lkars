@@ -3,9 +3,9 @@
 TERM=ansi
 src_dir="$HOME/.local/src"
 
-list_function()
-{
-  ( grep '.*()' '/lib/liblkars' | sed -z 's|()| |g;s|\n|,|g;s|,$|\n|' )
+function list_function {
+grep '.*_*()' '/lib/liblkars' | sed '/function/,+2d' | sed -z 's/()//g;s/\n/, /g;s/, $//g'
+
 }
 
 set_samba()
@@ -137,7 +137,7 @@ while getopts ":hlviuda" opt; do
       v) vers break ;;
       i) installlkars break ;;
       u) uninstall break ;;
-      d) demo_01  break ;;
+      d) demo_01 ; help  break ;;
       ?) help break ;;
     esac
   exit
