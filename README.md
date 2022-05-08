@@ -8,38 +8,61 @@ Linux Kernel Access Record Sensor data
 ![](https://img.shields.io/github/license/Tearran/lkars)
 
 Features
--  Setup a dev environment /home/$USER/.local/
--  read/list available i2c device  addresses
--  Install
-   -  File Share
-   -  [iic-scanner](https://github.com/Tearran/iic-scanner)
-      - Under Development
-   -  libkars ( base library for LKARS )
-      - Under Development
-   -  lkars-config ( Command line graphical user interface )
-      - Under Development
-   -  install libkars-dev
-      - Under Development
--  Uninstall
-   - File Share
-   - libkars
-   - lkars-config
+-  Installs
+   -  libkars 
+      -  base library for LKARS
+   -  lkars-config 
+      -  SSH interface
+   -  File Shareing
+      - Interactive installation
+      - samba
+   -  ~[iic-scanner](https://github.com/Tearran/iic-scanner)~
+      - Development
+   - ANSI Art Demo
+      - blender image converted to ANSI 
+  
+-  Uninstalls
+   - liblkars
+      - removes /usr/lib/liblkars
+   - lkars-config 
+      - removes /user/bin/lkars-config
+   - File Shareing
+      - Purge samba
+      - remove samba cofiguaration files and setting 
 
--  libkars -h ( Help usage: [ -flag ] )
-## prerequist
-
-fresh install of raberry pi os
-
-instructions avalible at https://www.raspberrypi.com/software/
-
-run `sudo apt update`
+## Requierments
+- Raspberry pi zero/w/wh
+- Fresh install of raberry pi os
+- instructions avalible at https://www.raspberrypi.com/software/
+- Respostory up to date `sudo apt update`
 
 Quick Install:
 ```bash
 wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars ; bash liblkars -i
 ```
-Uninstall:
+Quick Uninstall:
 ```bash
 /user/lib/liblkars -u
 ```
+liblkars useage:
+```bash
+/usr/lib/liblkars -h
+```
+Returns:
+```bash
+Useage: liblkars [-h|-v|-i|-u]
+Options:
+        -d      Demo, Retro art
+        -i      Install lkars-config
+        -u      Uninstall lkars-config
+        -h      Print this help.
+        -v      Print version info.
+beta@lkars:~ $
+```
+ANSI Demo
+```bash
+liblkars -d
+```
+Returns:
 
+![Alt text](https://raw.githubusercontent.com/Tearran/lkars/master/assest/ansi_demo.png)
