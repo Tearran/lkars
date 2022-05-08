@@ -3,6 +3,18 @@
 
 clear
 
+export NEWT_COLORS='
+root=white,black
+window=white,black
+textbox=green,black
+title=green,black
+listbox=yellow,black
+sellistbox=black,green
+actsellistbox=black,yellow
+border=blue,black
+actbutton=black,green
+'
+
 if [  -f /usr/lib/liblkars ] ;
 then
 source "/usr/lib/liblkars"
