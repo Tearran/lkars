@@ -1,7 +1,5 @@
 #!/bin/bash
-# Lkcars
-
-
+# Lkcars Installer
 TERM=ansi
 src_dir="$HOME/.local/src"
 
@@ -58,13 +56,13 @@ dev()
 demo_ansi()
 {
   clear
-  for x in {0..7} ; 
+  for x in {0..7} ;
   do
     #echo -e "\e[H"
-    echo "ESCAPE=\e[$x " 
-      for (( y=0; y<=9; y++ )) ; 
+    echo "ESCAPE=\e[$x "
+      for (( y=0; y<=9; y++ )) ;
       do
-        for (( z=0; z<=9; z++ )) ; 
+        for (( z=0; z<=9; z++ )) ;
         do
           printf "\e[${x};3${y};4${z}m"
           printf "\\\\\\\e[${x};3${y};4${z}m"
@@ -131,13 +129,7 @@ help()
   echo -e "\t-v\tPrint version info."
 }
 
-if [[ $# -eq 0 ]] ; then
-  #installlkars
-  help
-  exit 1
-fi
-
-
+if [[ $# -eq 1 ]] ; then
 while getopts ":hlviuda" opt; do
     case $opt in
       h) help break ;;
@@ -150,3 +142,5 @@ while getopts ":hlviuda" opt; do
     esac
   exit
 done
+
+fi
