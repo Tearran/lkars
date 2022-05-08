@@ -29,13 +29,11 @@ Features
    -  install libkars-dev
       - Under Development
 -  Uninstall
-   - Display Drivers
    - File Share
    - libkars
    - lkars-config
 
 -  libkars -h ( Help usage: [ -flag ] )
--  libars-dev
 ## prerequist
 
 fresh install of raberry pi os
@@ -44,7 +42,7 @@ instructions avalible at https://www.raspberrypi.com/software/
 
 run `sudo apt update`
 
-Install with the following:
+Quick Install with the following:
 ```bash
-wget https://raw.githubusercontent.com/Tearran/lkars/master/install ; bash install
+wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars ; bash liblkars -i
 ```
