@@ -7,28 +7,31 @@ Linux Kernel Access Record Sensor data
 ![](https://img.shields.io/github/forks/Tearran/lkars)
 ![](https://img.shields.io/github/license/Tearran/lkars)
 
-Features
--  Installs
-   -  libkars 
-      -  base library for LKARS
-   -  lkars-config 
-      -  SSH interface
-   -  File Shareing
-      - Interactive installation
-      - samba
-   -  ~[iic-scanner](https://github.com/Tearran/iic-scanner)~
-      - Development
-   - ANSI Art Demo
-      - blender image converted to ANSI 
+
+
+# Features
+## Installs:
+- Source files
+   - `/home/$USER/.local/src/`
+-  libkars 
+   - base library for LKARS
+-  lkars-config 
+   -  SSH interface
+-  File Shareing
+   - Interactive installation of samba
+-  [iic-scanner](https://github.com/Tearran/iic-scanner)
+   - Pre Development
+   - base for 12c PNP 
   
--  Uninstalls
-   - liblkars
-      - removes /usr/lib/liblkars
-   - lkars-config 
-      - removes /user/bin/lkars-config
-   - File Shareing
-      - Purge samba
-      - remove samba cofiguaration files and setting 
+## Uninstalls
+- liblkars
+   - removes /usr/lib/liblkars
+- lkars-config 
+   - removes /user/bin/lkars-config
+- File Shareing
+   - Purge samba
+   - remove samba cofiguaration files and setting 
+ 
 
 ## Requierments
 - Raspberry pi zero/w/wh
