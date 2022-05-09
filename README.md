@@ -7,6 +7,25 @@ Linux Kernel Access Record Sensor data
 ![](https://img.shields.io/github/forks/Tearran/lkars)
 ![](https://img.shields.io/github/license/Tearran/lkars)
 
+## Lkars intended use:
+To Gather and Utilise well known and established Open source methods of gpio control and display with a minumum of dependents
+
+## Current development 
+The focused on liblKars the BackEnd & lkars-config a frontend for ssh.
+
+## For fun PUTTY compatible ANSI ART:
+An example of ANSI escape sequences to liven up a ssh shell
+
+
+## Requierments
+- Hardware 
+   - Rapberry pi
+      - zero
+      - zero w
+- OS Raspian Buster (long term support)
+   - instructions avalible at https://www.raspberrypi.com/software/
+- Respostory up to date 
+   - `sudo apt update`
 
 
 # Features
@@ -14,14 +33,16 @@ Linux Kernel Access Record Sensor data
 - Source files
    - `/home/$USER/.local/src/`
 -  libkars 
-   - base library for LKARS
+   - base backend for LKARS
 -  lkars-config 
-   -  SSH interface
+   - SSH frontend for lkars
 -  File Shareing
    - Interactive installation of samba
+      - todo: complet interactive installation
+      - todo ; automate     
 -  [iic-scanner](https://github.com/Tearran/iic-scanner)
    - Pre Development
-   - base for 12c PNP 
+   - base backend for 12c Interactive Plugin Play installation 
   
 ## Uninstalls
 - liblkars
@@ -32,12 +53,6 @@ Linux Kernel Access Record Sensor data
    - Purge samba
    - remove samba cofiguaration files and setting 
  
-
-## Requierments
-- Raspberry pi zero/w/wh
-- Fresh install of raberry pi os
-- instructions avalible at https://www.raspberrypi.com/software/
-- Respostory up to date `sudo apt update`
 
 Quick Install:
 ```bash
