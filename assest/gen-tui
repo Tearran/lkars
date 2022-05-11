@@ -1,0 +1,23 @@
+#!/bin/bash
+
+{
+title="LKARS"
+counter=$( grep -c '^..description.*' "/home/beta/.local/src/lkars/liblkars")
+mapfile -t array < <( grep -x -B1 '^..description.*' "/home/beta/.local/src/lkars/liblkars" | sed -z 's|^|"|;s|  description=||g;s|(){\n|" |g;s|--| "|g' )
+printf -v menu '%s' "${array[@]}"
+printf 'whiptail --title "%s" --menu "Make your choice" 16 100 %s %s' "${title}" "${counter}" "${menu}"  > ./tui.sh
+source ./tui.sh
+}
+
+#LKARSMENU="${fun_list}"
+#X=( $( grep -x '^..description.*' /home/beta/.local/src/lkars/liblkars ) )
+#echo ${X[1]}
+#echo ${X[2]}
+#echo ${X[3]}
+#echo ${X[4]}
+
+#for i in $( echo $LKARSMENU )
+#  do
+#    echo -e "$x) $i"
+#    ((x++))
+#  done
