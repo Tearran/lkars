@@ -9,78 +9,32 @@ Linux Kernel Access Record Sensor data
 
 ## Lkars intended use:
 To Gather and Utilise well known and established Open source methods of gpio control and display with a minumum of dependents
-
-## Current development 
-The focused on liblKars the BackEnd & lkars-config a frontend for ssh.
-
-## For fun PUTTY compatible ANSI ART:
-An example of ANSI escape sequences to liven up a ssh shell
-
-
-## Requierments
-- Hardware 
-   - Rapberry pi
-      - zero
-      - zero w
+   
+## Target systems
+- Rapberry pi 
+   - zero, zero w, zero 2
 - OS Raspian Buster (long term support)
-   - instructions avalible at https://www.raspberrypi.com/software/
-- Respostory up to date 
-   - `sudo apt update`
-
-
-# Features
-## Installs:
-- Source files
-   - `/home/$USER/.local/src/`
--  libkars 
-   - base backend for LKARS
--  lkars-config 
-   - SSH frontend for lkars
--  File Shareing
-   - Interactive installation of samba
-      - todo: complet interactive installation
-      - todo ; automate     
--  [iic-scanner](https://github.com/Tearran/iic-scanner)
-   - Pre Development
-   - base backend for 12c Interactive Plugin Play installation 
-  
-## Uninstalls
-- liblkars
-   - removes /usr/lib/liblkars
-- lkars-config 
-   - removes /user/bin/lkars-config
-- File Shareing
-   - Purge samba
-   - remove samba cofiguaration files and setting 
+   - apt respostory up to date `sudo apt update`
+   -
+## Current development 
+### Focuse: 
+- Display module/driver [juj fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
+   - ST7735, ST7735S, ST7735S Wide
+   - ST7789 Pirate Audio Phat
+   - ST7789 WaveShare Game Phat
  
+# Features
 
-Quick Install:
+- Download Source files
+   - `/home/$USER/.local/src/` 
+- Generated menu from bash scripts
+   - eft-it scripts
+- getopt flags
+      
 ```bash
-wget https://raw.githubusercontent.com/Tearran/lkars/master/liblkars ; bash liblkars -i
-```
-Quick Uninstall:
-```bash
-/user/lib/liblkars -u
-```
-liblkars useage:
-```bash
-/usr/lib/liblkars -h
-```
-Returns:
-```bash
-Useage: liblkars [-h|-v|-i|-u]
+Usage: lkars [ -h  | -v | -m ]
 Options:
-        -d      Demo, Retro art
-        -i      Install lkars-config
-        -u      Uninstall lkars-config
         -h      Print this help.
         -v      Print version info.
-beta@lkars:~ $
+        -m      makelib Generate library.
 ```
-ANSI Demo
-```bash
-liblkars -d
-```
-Returns:
-
-![Alt text](https://raw.githubusercontent.com/Tearran/lkars/master/assest/ansi_demo.png)
