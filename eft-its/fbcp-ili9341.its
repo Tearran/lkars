@@ -1,0 +1,211 @@
+
+LKARS="$HOME/.local"
+
+build_pirate_audio_fbcp(){
+##Display ##Pirate Audio Phat Framebuffer copy
+  ( git --version || sudo apt install git )
+  ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
+  ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
+  ( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DPIRATE_AUDIO_ST7789_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DUSE_DMA_TRANSFERS=OFF -DSTATISTICS=0 .. )
+  ( cd "$LKARS/src/fbcp/build/" && make -j )
+  ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/usr/bin/fbcp" || echo "error cp bin/fbcp" )
+
+  240x240_bootconfig 
+  fbcpd_systemctl
+
+
+}
+
+build_st7735SW(){
+##Display ##ST7735S Wide 160x Framebuffer copy
+  ( git --version || sudo apt install git )
+  ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
+  ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
+  ( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DST7735SW=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
+  ( cd "$LKARS/src/fbcp/build/" && make -j )
+  ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/usr/bin/fbcp" || echo "error cp bin/fbcp" )
+}
+
+luma_display(){
+##Display ##Luma Python display Library
+  ( [ ! -d "$LKARS/src/luma.examples/" ]  && git clone https://github.com/rm-hull/luma.examples.git "$LKARS/src/luma.examples" || echo "pass" )
+}
+
+
+
+build_st7735sw_fbcp()
+{
+  ( git --version || sudo apt install git )
+  ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
+  ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
+  ( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DST7735SW=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
+  ( cd "$LKARS/src/fbcp/build/" && make -j )
+  ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/usr/bin/fbcp" || echo "error cp bin/fbcp" )
+}
+
+build_st7735r_fbcp()
+{
+  ( git --version || sudo apt install git )
+  ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
+  ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
+  ( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DST7735R=ON -DGPIO_TFT_BACKLIGHT=16 -DGPIO_TFT_RESET_PIN=21 -DGPIO_TFT_DATA_CONTROL=20 -DSPI_BUS_CLOCK_DIVISOR=30 -DSTATISTICS=0 -DDISPLAY_SWAP_BGR=ON -DDISPLAY_INVERT_COLORS=OFF .. )
+  ( cd "$LKARS/src/fbcp/build/" && make -j )
+  ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/usr/bin/fbcp" || echo "error cp bin/fbcp" )
+}
+
+build_waveshare_fbcp()
+{
+  ( git --version || sudo apt install git )
+  ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
+  ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
+  ( [ -d "$LKARS/src/fbcp/" ] && mkdir "$LKARS/src/fbcp/build" ) && ( cd "$LKARS/src/fbcp/build/" && cmake -Wno-dev -DWAVESHARE_ST7789VW_HAT=ON -DSPI_BUS_CLOCK_DIVISOR=30 -DBACKLIGHT_CONTROL=ON -DUSE_DMA_TRANSFERS=OFF -DSTATISTICS=0 .. )
+  ( cd "$LKARS/src/fbcp/build/" && make -j )
+  ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/bin/fbcp" || echo "error cp /bin/fbcp" )
+}
+
+fbcpd_systemctl()
+{
+cat <<EOF > "$LKARS/src/lkars/fbcpd.service"
+[Unit]
+Description=Starts Frambuffer copy
+DefaultDependencies=false
+[Service]
+Type=simple
+ExecStart=fbcp
+WorkingDirectory=/usr/bin/
+[Install]
+WantedBy=local-fs.target
+EOF
+
+  sudo cp "$LKARS/src/lkars/fbcpd.service" /etc/systemd/system/ ;
+  sudo systemctl enable fbcpd.service ;
+  sudo systemctl start fbcpd.service ;
+
+}
+
+default_bootconfig()
+{
+cat << OSEOF > $LKARS/src/lkars/config.txt
+# For more options and information see
+# http://rpf.io/configtxt
+# Some settings may impact device functionality. See link above for details
+# uncomment if you get no picture on HDMI for a default "safe" mode
+#hdmi_safe=1
+# uncomment this if your display has a black border of unused pixels visible
+# and your display can output without overscan
+disable_overscan=1
+# uncomment the following to adjust overscan. Use positive numbers if console
+# goes off screen, and negative if there is too much border
+#overscan_left=16
+#overscan_right=16
+#overscan_top=16
+#overscan_bottom=16
+# uncomment to force a console size. By default it will be display's size minus
+# overscan.
+#framebuffer_width=1280
+#framebuffer_height=720
+# uncomment if hdmi display is not detected and composite is being output
+#hdmi_force_hotplug=1
+# uncomment to force a specific HDMI mode (this will force VGA)
+#hdmi_group=1
+#hdmi_mode=1
+# uncomment to force a HDMI mode rather than DVI. This can make audio work in
+# DMT (computer monitor) modes
+#hdmi_drive=2
+# uncomment to increase signal to HDMI, if you have interference, blanking, or
+# no display
+#config_hdmi_boost=4
+# uncomment for composite PAL
+#sdtv_mode=2
+#uncomment to overclock the arm. 700 MHz is the default.
+#arm_freq=800
+# Uncomment some or all of these to enable the optional hardware interfaces
+#dtparam=i2c_arm=on
+#dtparam=i2s=on
+#dtparam=spi=on
+# Uncomment this to enable infrared communication.
+#dtoverlay=gpio-ir,gpio_pin=17
+#dtoverlay=gpio-ir-tx,gpio_pin=18
+# Additional overlays and parameters are documented /boot/overlays/README
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+[pi4]
+# Enable DRM VC4 V3D driver on top of the dispmanx display stack
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
+[all]
+#dtoverlay=vc4-fkms-v3d
+# 
+# Restore Complete!
+#
+OSEOF
+
+sudo cp --no-preserve=mode -f /boot/config.txt /boot/config.bak
+echo "Back up exitsing config"
+sudo cp --no-preserve=mode -f "$LKARS/src/lkars/config.txt" /boot/config.txt
+echo "Restore Complete!"
+
+}
+
+240x240_bootconfig()
+{
+cat << OSEOF > $LKARS/src/lkars/config.txt
+
+# Uncomment some or all of these to enable the optional hardware interfaces
+dtparam=i2c_arm=on
+dtparam=i2s=on
+#dtparam=spi=on
+# Additional overlays and parameters are documented /boot/overlays/README
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=off
+
+[pi4]
+# Enable DRM VC4 V3D driver on top of the dispmanx display stack
+dtoverlay=vc4-fkms-v3d
+max_framebuffers=2
+[all]
+#dtoverlay=vc4-fkms-v3d
+display_rotate=1
+
+hdmi_group=2
+hdmi_mode=87
+hdmi_cvt=240 240 60 1 0 0 0
+hdmi_force_hotplug=1
+dtoverlay=hifiberry-dac
+gpio=25=op,dh
+
+OSEOF
+
+sudo cp --no-preserve=mode -f /boot/config.txt /boot/config.bak
+echo "Back up exitsing config"
+sudo cp --no-preserve=mode -f "$LKARS/src/lkars/config.txt" /boot/config.txt
+echo "Instalation Complete!"
+
+}
+
+128x160_bootconfig()
+{
+cd "$LKARS/" || exit
+cat << OSEOF > "$LKARS/src/lkars/config.txt"
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=off
+#Remove black border
+#disable_overscan=1
+#fbcp settings 128x160 60hz
+#display_rotate=1
+hdmi_group=2
+hdmi_mode=87
+hdmi_cvt=160 128 60 1 0 0 0
+hdmi_force_hotplug=1
+#I2C
+dtparam=i2c_arm=on
+#SPI if fbcp is used, SPI should be turned off.
+dtparam=spi=off
+OSEOF
+
+sudo cp --no-preserve=mode -f /boot/config.txt /boot/old.config
+echo "Back up exitsing config"
+sudo cp --no-preserve=mode -f "$LKARS/src/lkars/config.txt" /boot/config.txt
+echo "Framebuffer copy, Configuration complete!"
+
+}
