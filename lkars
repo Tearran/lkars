@@ -80,14 +80,14 @@ see_version()
 make_ifts()
 {
 
-  DIRECTORY=$(cd `dirname $0` && pwd)
+  DIRECTORY=$(cd $(dirname $0) && pwd)
   itsname=libeft-its
   eftname=eft-menu
   cat $( echo -e $DIRECTORY/eft-its/*.its )  >  $DIRECTORY/$itsname
   echo -e "\neft-its library created $DIRECTORY/$itsname\n\n"
 
   echo -e "\n\tPress any key to Continue...\n"
-  read -n 1
+  read -r -p -n 1
 #( bash $DIRECTORY/$eftname )
 
 
