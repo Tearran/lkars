@@ -10,7 +10,7 @@ build_pirate_audio_fbcp(){
   ( cd "$LKARS/src/fbcp/build/" && make -j )
   ( [ -f "$LKARS/src/fbcp/build/fbcp-ili9341" ] || echo "error building fbcp" ) && (  sudo cp "$LKARS/src/fbcp/build/fbcp-ili9341" "/usr/bin/fbcp" || echo "error cp bin/fbcp" )
 
-  240x240_bootconfig 
+  240_240_bootconfig 
   fbcpd_systemctl
 
 
@@ -30,8 +30,6 @@ luma_display(){
 ##Display ##Luma Python display Library
   ( [ ! -d "$LKARS/src/luma.examples/" ]  && git clone https://github.com/rm-hull/luma.examples.git "$LKARS/src/luma.examples" || echo "pass" )
 }
-
-
 
 build_st7735sw_fbcp()
 {
@@ -147,7 +145,7 @@ echo "Restore Complete!"
 
 }
 
-240x240_bootconfig()
+240_240_bootconfig()
 {
 cat << OSEOF > $LKARS/src/lkars/config.txt
 
@@ -183,7 +181,7 @@ echo "Instalation Complete!"
 
 }
 
-128x160_bootconfig()
+128_160_bootconfig()
 {
 cd "$LKARS/" || exit
 cat << OSEOF > "$LKARS/src/lkars/config.txt"
