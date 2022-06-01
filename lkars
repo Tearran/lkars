@@ -87,8 +87,9 @@ make_ifts()
   echo -e "\neft-its library created $DIRECTORY/$itsname\n\n"
 
   echo -e "\n\tPress any key to Continue...\n"
-  read -r -p -n 1
-#( bash $DIRECTORY/$eftname )
+  read -r -n 1
+  #uncomment to run menu after build
+  #( bash $DIRECTORY/$eftname )
 
 
 }
