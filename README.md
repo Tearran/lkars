@@ -20,13 +20,24 @@ To Gather and Utilise well known and established Open source methods of gpio con
 - OS Debian/Raspian 
 
 ## Current development 
-### Focuse: 
+### Focuse:
+- System configuration
+   - Display System analize ( boot / times )
+   - 
+### Working:
+- Auto generating menus
+   - whiptial 
+   - Menu format
+      - 2x#Catagory[:space:]2x#description[:space:]2x# 
+      - `##Example eft-its ##A sort discription of entry ##`
+      - see eft-its folder for examples
+ 
 - Display module/driver [juj fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
    - ST7735, ST7735S, ST7735S Wide
    - ST7789 Pirate Audio Phat
    - ST7789 WaveShare Game Phat
  
-# Features
+
 
 - Download Source files
    - `/home/$USER/.local/src/` 
