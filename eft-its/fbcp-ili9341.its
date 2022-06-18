@@ -2,7 +2,8 @@
 LKARS="$HOME/.local"
 
 build_pirate_audio_fbcp(){
-##Display ##Pirate Audio Phat Framebuffer copy
+##Display ##Pirate Audio Phat Framebuffer copy ##
+
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
   ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
@@ -17,7 +18,8 @@ build_pirate_audio_fbcp(){
 }
 
 build_st7735SW(){
-##Display ##ST7735S Wide 160x Framebuffer copy
+##Display ##ST7735S Wide 160x Framebuffer copy ##
+
   ( git --version || sudo apt install git )
   ( [ ! -d "$LKARS/src/fbcp/" ] && git clone https://github.com/Tearran/fbcp-ili9341.git  "$LKARS/src/fbcp" || echo "pass" )
   ( [ ! -f /usr/bin/cmake ] && sudo apt install cmake -y ) || ( echo "cmake installed" )
@@ -27,7 +29,8 @@ build_st7735SW(){
 }
 
 luma_display(){
-##Display ##Luma Python display Library
+##Display ##Luma Python display Library ##
+
   ( [ ! -d "$LKARS/src/luma.examples/" ]  && git clone https://github.com/rm-hull/luma.examples.git "$LKARS/src/luma.examples" || echo "pass" )
 }
 
