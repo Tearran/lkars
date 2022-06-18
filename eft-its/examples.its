@@ -1,0 +1,38 @@
+
+# just for fun :)
+run_rasconf(){
+##Examples ##Raspberry pi Configuration (raspi-congfig) ##
+
+    [[ -f /bin/raspi-config ]] && sudo raspi-config
+    
+}
+
+
+whiptail_example_01(){
+##System ##Simple Whiptail message ##
+
+whiptail --msgbox "This has been an example exicution of a menu entry 02 Press OK to continue"  $(stty size)
+
+}
+
+whiptail_example_02(){
+##Display ##Advanced whiptail menu item ##
+
+whiptail --msgbox "Display " $(stty size)
+
+}
+
+whiptail_example_03(){
+##Performance  ##Advanced whiptail menu item ##
+
+whiptail --msgbox "Performance " $(stty size)
+
+}
+
+
+not_on_menu()
+{
+
+echo "This is a message from a funtion not listed"
+
+}

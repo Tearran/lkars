@@ -1,8 +1,0 @@
-
-# just for fun :)
-run_rasconf(){
-##System ##Raspberry pi Configuration (raspi-congfig) ##
-
-    [[ -f /bin/raspi-config ]] && sudo raspi-config
-    
-}
