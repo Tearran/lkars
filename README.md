@@ -6,7 +6,7 @@ Linux Kernel Access Record Sensor data
 ![Shields.io](https://img.shields.io/github/issues/Tearran/lkars)
 ![](https://img.shields.io/github/forks/Tearran/lkars)
 ![](https://img.shields.io/github/license/Tearran/lkars)
-
+![Image URL](https://media.discordapp.net/attachments/984851337768497242/987640266825564210/lkars-config.png)
 ## Lkars intended use:
 
 To Gather and Utilise well known and established Open source methods of gpio and system control with a minumum of efforts
