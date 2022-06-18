@@ -1,12 +1,10 @@
 
-# just for fun :)
 run_rasconf(){
 ##System Configuration ##Distro Configuration Utility(raspi-congfig) ##
 
     [[ -f /bin/raspi-config ]] && sudo raspi-config
     
 }
-
 
 whiptail_example_01(){
 ##Example eft-its ##Simple Whiptail message ##
@@ -28,3 +26,12 @@ not_on_menu()
 echo "This is a message from a funtion not listed in the menu "
 
 }
+
+
+systemd_blame(){
+##System Configuration ##Analyze Boot up sequence with BLAME ##
+
+  sys_blame=$( systemd-analyze blame )
+  whiptail --title "analyze blame" --msgbox "$( printf '%s\n' "${sys_blame[@]}" )" $(stty size) --scrolltext
+
+} 
