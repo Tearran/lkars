@@ -1,0 +1,144 @@
+#!/bin/bash
+
+#Uncomment set -x to debug (see bash output to assist self debug)
+#set -x
+
+#Ver format stable.unstable.testing
+# versinfo="0.0.1" first alpha
+# versinfo="0.1.0" first release
+# versinfo="1.0.0" first stable release
+versinfo="0.0.10"
+
+#File location and name
+SRC="${BASH_SOURCE[0]}"
+
+# The name of the File without the leading path
+# used for file id if name changed
+filename=$(basename "$SRC")
+
+#Path to librarie if installed /user/lib/
+[ -f /usr/lib/libeft-its ] && libname=/user/lib/libeft-its
+
+#path to library if not installed (dev mode)
+[ ! -f /usr/lib/libeft-its ] && libname=$(dirname "$0")/libeft-its
+
+#include library
+[ -f $libname ] && . $libname
+
+# Newt color theme for whiptail
+# Colors = forground, background
+export NEWT_COLORS='
+root=,black
+border=white,black
+title=green,black
+roottext=red,black
+window=red,black
+textbox=white,black
+button=black,green
+compactbutton=white,black
+listbox=white,black
+actlistbox=black,white
+actsellistbox=black,green
+checkbox=green,black
+actcheckbox=black,green
+'
+
+#Menu Generation
+#Grep, sort and sed to filter data
+run_whiptail()
+{
+  #Consol size used for whiptail
+  #alternitive $(stty size)
+  cols=$(tput cols)
+  rows=$(tput lines)
+  
+  # Generate a Disciption array 
+  readarray -t dis_array < <( grep -e '^##.* ##' "$libname" | sed "s|^##||g;s| ##| |g" )
+  
+  # Generate a Catigory array
+  readarray -t cat_array < <( grep -e '^##.*' "$libname" | sed "s|^##||g;s| ##.*||g" | sort -u )
+  
+  # loop and number catagory array 
+  readarray -t cat_loop < <( for i in "${!cat_array[@]}" ; do  printf "%s\n %s\n"  "$i" "${cat_array[i]}" ; done )
+  
+
+while :
+  do
+
+    # Main menu 
+    cat_result=$(whiptail --title  "${filename%.*}" --cancel-button Finish --menu --clear " " "$rows" "$cols" "$end" "${cat_loop[@]}" 3>&2 2>&1 1>&3- )    
+    
+    # if none selected or --cancel-button pressed, do nothing and exit
+    [[ -z $cat_result ]] && exit 
+    
+    # else create Sub menu decriptions     
+    [[ -n $cat_result ]] && readarray -t grp_array < <( grep -e "${cat_array[$cat_result]}" "$libname" | sed "s|^##||g;s| ##| |g;s|${cat_array[$cat_result]}||" ) && echo "${grp_array[@]}"
+    
+    # Loop it 
+    [[ -n $cat_result ]] && readarray -t dis_loop < <( for i in "${!grp_array[@]}" ; do  printf "%s\n%s\n"  "$i" "${grp_array[i]}" ; done )
+    
+    #Display Sub Menu 
+    dis_result=$(whiptail --title  "${filename%.*}" --cancel-button Back --menu --clear " " "$rows" "$cols" "$end" "${dis_loop[@]}" 3>&2 2>&1 1>&3- )
+    
+    # if selected find selected Sub menu function
+    #[[ -n $dis_result ]] && readarray -t fun_array < <( grep -B1 "${cat_array[$cat_result]}" "$libname" ) && 
+    [[ -n $dis_result ]] && readarray -t fun_array < <( grep -B1 "${cat_array[$cat_result]}" "$libname" | sed -z 's|(){\n||g;s|--\n||g' ) 
+    
+    [[ -n $dis_result ]] && readarray -t fun_loop < <( for i in "${!fun_array[@]}" ; do  printf "%s\n" "${fun_array[i]}" | sed -z 's|##.*##||g' ; done )
+    # if selected Excute selected Sub menu function
+    [[ -n $dis_result ]] && printf '%s\n' "${fun_loop[@]}"
+    [[ -n $dis_result ]] && "${fun_loop[$dis_result]}"
+    # else end of loop and restart  
+ 
+  done
+
+}
+
+see_version()
+{
+  echo " ${filename%.*} version $versinfo "
+}
+
+
+
+make_ifts()
+{
+
+  DIRECTORY=$(cd $(dirname $0) && pwd)
+  itsname=libeft-its
+  cat $( echo -e $DIRECTORY/eft-its/*.its )  >  $DIRECTORY/$itsname
+  echo -e "\neft-its library created $DIRECTORY/$itsname\n\n"
+  echo -e "\n\tPress any key to Continue...\n"
+  read -r -n 1
+  #uncomment to run menu after build
+  #( bash $DIRECTORY/lkars-config )
+
+
+}
+
+see_help()
+{
+  echo "Usage: ${filename%.*} [ -h  | -v | -m ]"
+  echo -e "Options:"
+  echo -e "\t-h\tPrint this help."
+  echo -e "\t-v\tPrint version info."
+  echo -e "\t-m\tmakelib Generate eft-its library."
+
+}
+
+if [[ $# -eq 1 ]] ; then
+while getopts ":hvm" opt; do
+    case $opt in
+      h) see_help break ;;
+      v) see_version break ;;
+      m) make_ifts break ;;
+      ?) echo  -e "\033[33;5m?! Say What!?\033[0m" ; see_help break ;;
+    esac
+  exit
+done
+fi
+
+if [[ $# -eq 0 ]] ; then
+  [ -f $libname ] && run_whiptail
+  [ ! -f $libname ] && echo -e "Library not found \033[5mrun makelib\033[0m\nDisplaying help file\n" && see_help
+fi
