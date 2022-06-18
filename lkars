@@ -1,0 +1,122 @@
+#!/bin/bash
+
+#Uncomment set -x to debug (see bash output to assist self debug)
+#set -x
+
+#Ver format stable.unstable.testing
+# versinfo="0.0.1" first alpha
+# versinfo="0.1.0" first release
+# versinfo="1.0.0" first stable release
+versinfo="0.0.10"
+
+#File location and name
+SRC="${BASH_SOURCE[0]}"
+
+# The name of the File without the leading path
+# used for file id if name changed
+filename=$(basename "$SRC")
+
+#Path to librarie if installed /user/lib/
+[ -f /usr/lib/libeft-its ] && libname=/user/lib/libeft-its
+#path to library if not installed (dev mode)
+[ ! -f /usr/lib/libeft-its ] && libname=$(dirname "$0")/libeft-its
+#include library
+[ -f $libname ] && . $libname
+
+# Newt color theme for whiptail
+# type = forground, background
+export NEWT_COLORS='
+root=,black
+border=white,black
+title=green,black
+roottext=red,black
+window=red,black
+textbox=white,black
+button=black,green
+compactbutton=white,black
+listbox=white,black
+actlistbox=black,white
+actsellistbox=black,green
+checkbox=green,black
+actcheckbox=black,green
+'
+
+#Menu Generation
+#Grep and sed used to filter unrealitive data
+run_whiptail()
+{
+  cols=$(tput cols)
+  lines=$(tput lines)
+  readarray -t fun_array < <( grep -e '^[a-z].*_.*(){' "$libname"  | sed 's|(){.*||g' )
+  #grep searches for 'double comments wilcard double comment' to identify discription string
+  readarray -t dsc_array < <( grep -e '^##.*##' "$libname" | sed "s|^##.*##||g" )
+
+  # counts how many instances of the search
+  readarray -t dsc_count < <( grep -c '^##.*##' "$libname" | sed 's|^##.*##||g' )
+
+  #used for loop counter
+  end="${dsc_count[0]}"
+
+  #loop to creat menu entries
+  readarray -t arr2 < <( for ((i=0; i<end; i++)) ; do  printf "%s\n) %s\n"  "$i" "${dsc_array[i]}" ; done )
+  while :
+   do
+      result=$(whiptail --title  "${filename%.*}" --cancel-button Finish --menu --clear " " "$lines" "$cols" "$end" "${arr2[@]}" 3>&2 2>&1 1>&3- )
+      # if none selected or --cancel-button pressed, do nothing and exit
+      [[ -z $result ]] && echo $result && exit
+      # menu array
+      "${fun_array[$result]}"
+   done
+
+}
+
+see_version()
+{
+  echo " ${filename%.*} version $versinfo "
+}
+
+
+
+make_ifts()
+{
+
+  DIRECTORY=$(cd $(dirname $0) && pwd)
+  itsname=libeft-its
+  eftname=eft-menu
+  cat $( echo -e $DIRECTORY/eft-its/*.its )  >  $DIRECTORY/$itsname
+  echo -e "\neft-its library created $DIRECTORY/$itsname\n\n"
+
+  echo -e "\n\tPress any key to Continue...\n"
+  read -r -n 1
+  #uncomment to run menu after build
+  #( bash $DIRECTORY/$eftname )
+
+
+}
+
+see_help()
+{
+  echo "Usage: ${filename%.*} [ -h  | -v | -m ]"
+  echo -e "Options:"
+  echo -e "\t-h\tPrint this help."
+  echo -e "\t-v\tPrint version info."
+  echo -e "\t-m\tmakelib Generate eft-its library."
+
+}
+
+if [[ $# -eq 1 ]] ; then
+while getopts ":hvm" opt; do
+    case $opt in
+      h) see_help break ;;
+      v) see_version break ;;
+      m) make_ifts break ;;
+      ?) echo  -e "\033[33;5m?! Say What!?\033[0m" ; see_help break ;;
+    esac
+  exit
+done
+fi
+
+if [[ $# -eq 0 ]] ; then
+  [ -f $libname ] && run_whiptail
+  [ ! -f $libname ] && echo -e "Library not found \033[5mrun makelib\033[0m\nDisplaying help file\n" && see_help
+fi

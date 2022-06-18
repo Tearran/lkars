@@ -11,11 +11,14 @@ Linux Kernel Access Record Sensor data
 To Gather and Utilise well known and established Open source methods of gpio control and display with a minumum of dependents
    
 ## Target systems
+- Banana pi
+   - M2 Zero 
+- Libre Computer
+   - Le Potato
 - Rapberry pi 
    - zero, zero w, zero 2
-- OS Raspian Buster (long term support)
-   - apt respostory up to date `sudo apt update`
-   -
+- OS Debian/Raspian 
+
 ## Current development 
 ### Focuse: 
 - Display module/driver [juj fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
