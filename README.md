@@ -8,22 +8,29 @@ Linux Kernel Access Record Sensor data
 ![](https://img.shields.io/github/license/Tearran/lkars)
 
 ## Lkars intended use:
-To Gather and Utilise well known and established Open source methods of gpio control and display with a minumum of dependents
+
+To Gather and Utilise well known and established Open source methods of gpio and system control with a minumum of efforts
    
-## Target systems
+## Target systems Debian
+
 - Banana pi
-   - M2 Zero 
+   - M2 Zero - partly tested
 - Libre Computer
-   - Le Potato
+   - Le Potato - untested
 - Rapberry pi 
-   - zero, zero w, zero 2
-- OS Debian/Raspian 
+   - zero, zero w, zero 2 - tested working
 
 ## Current development 
 ### Focuse:
-- System configuration
-   - Display System analize ( boot / times )
-   - 
+- Menu generation
+   - Basic bash Examples called eft-its
+   - Multy Funtion Example eft-its
+- System boot configuration
+   - Analyze Boot up sequence with BLAME ( boot / times )
+- Project Software
+   - Mopidy 
+
+   
 ### Working:
 - Auto generating menus
    - whiptial 
