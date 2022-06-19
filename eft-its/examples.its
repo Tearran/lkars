@@ -1,11 +1,4 @@
 
-run_rasconf(){
-##System Configuration ##Distro Configuration Utility(raspi-congfig) ##
-
-    [[ -f /bin/raspi-config ]] && sudo raspi-config
-    
-}
-
 whiptail_example_01(){
 ##Example eft-its ##Simple Whiptail message ##
 
