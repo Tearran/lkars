@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Uncomment set -x to debug (see bash output to assist manual debug)
-set -x
+#set -x
 
 #Ver format stable.unstable.testing
 # versinfo="0.0.1" first alpha
@@ -19,6 +19,7 @@ versinfo="0.0.10"
 SRC="${BASH_SOURCE[0]}"
 #anables Dynamic directory root ~/ or /bin or /usr/sbin etc.. 
 DIRECTORY=$(cd $(dirname "$0") && pwd)
+
 # The name of the File without the leading path
 # used for file id if name changed
 filename=$(basename "$SRC")
@@ -128,7 +129,7 @@ see_help()
   echo -e "Options:"
   echo -e "\t-h\tPrint this help."
   echo -e "\t-v\tPrint version info."
-  echo -e "\t-m\tmakelib Generate eft-its library."
+  echo -e "\t-m\tmakelib Generate eft-its library.\n"
 
 }
 
@@ -146,8 +147,8 @@ fi
 
 if [[ $# -eq 0 ]] ; then
   
-  tput smcup && clear
-  [ -f "$libname" ] && run_whiptail
+  [ -f "$libname" ] && tput smcup && clear  && run_whiptail ; tput rmcup
+  
   [ ! -f "$libname" ] && echo -e "Library not found \033[5mrun makelib\033[0m\nDisplaying help file\n" && see_help
-  tput rmcup
+
 fi
