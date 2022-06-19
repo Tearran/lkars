@@ -32,7 +32,7 @@ Join us on [Discord](https://discord.gg/MENHMuTmyH)
    - Analyze Boot up sequence with BLAME ( boot / times )
    - Distribution Config utility (raspi-config, armbian-config).
 
-### Entrys generates on Raspberry pi hardware (pi z/z2) Only.
+### Raspberry pi hardware (pi z/z2) Only.
 - Display module/driver [juj fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
    - ST7735, ST7735S, ST7735S Wide
    - ST7789 Pirate Audio Phat
