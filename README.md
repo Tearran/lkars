@@ -14,28 +14,31 @@ Join us on [Discord](https://discord.gg/MENHMuTmyH)
 ## Target systems Debian
 
 - Banana pi
-   - M2 Zero - simple menu tested for possible compatibility
+   - M2 Zero - Teated working
+- Rapberry pi 
+   - zero, zero w, zero 2 - Tested working
 - Libre Computer
    - Le Potato - untested possible compatibility
-- Rapberry pi 
-   - zero, zero w, zero 2 - tested working
 
 ## Current development 
 ![Image URL](https://media.discordapp.net/attachments/984851337768497242/987640266825564210/lkars-config.png)
 ### Focuse:
 - System boot configuration
    - USB Gadget mode
-- Project Software
-   - Mopidy pimoroni Piret Audio Phat
    
 ### Working:
-### Tested on Raspberry pi harware (pi z/z2) Only.
+### General hardware
 - System boot configuration
    - Analyze Boot up sequence with BLAME ( boot / times )
+   - Disprabutions Config utility.
+
+### Entrys generats on Raspberry pi harware (pi z/z2) Only.
 - Display module/driver [juj fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
    - ST7735, ST7735S, ST7735S Wide
    - ST7789 Pirate Audio Phat
    - ST7789 WaveShare Game Phat
+
+
 - Menu generation
    - Basic bash Examples called eft-its
    - Multy Funtion Example eft-its
