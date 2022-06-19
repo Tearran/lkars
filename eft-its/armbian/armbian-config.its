@@ -1,0 +1,6 @@
+dist_conf(){
+##System Configuration ##Distro Configuration Utility(raspi-congfig) ##
+
+    [[ -f /bin/armbian-config ]] && sudo raspi-config
+    
+}
