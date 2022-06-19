@@ -9,13 +9,13 @@ Linux Kernel Access Record Sensor data
 
 ## Lkars intended use:
 
-To Gather and Utilise well known and established Open source methods of gpio and system control with a minumum of efforts
+To Gather and Utilise well-known and established Open source methods of gpio and system control with a minimum of efforts
 Join us on [Discord](https://discord.gg/MENHMuTmyH)   
 ## Target systems Debian
 
 - Banana pi
    - M2 Zero - Teated working
-- Rapberry pi 
+- Raspberry pi 
    - zero, zero w, zero 2 - Tested working
 - Libre Computer
    - Le Potato - untested possible compatibility
@@ -30,9 +30,9 @@ Join us on [Discord](https://discord.gg/MENHMuTmyH)
 ### General hardware
 - System boot configuration
    - Analyze Boot up sequence with BLAME ( boot / times )
-   - Disprabutions Config utility.
+   - Distribution Config utility (raspi-config, armbian-config).
 
-### Entrys generats on Raspberry pi harware (pi z/z2) Only.
+### Entrys generates on Raspberry pi hardware (pi z/z2) Only.
 - Display module/driver [juj fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
    - ST7735, ST7735S, ST7735S Wide
    - ST7789 Pirate Audio Phat
