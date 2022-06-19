@@ -1,0 +1,6 @@
+dist_conf(){
+##System Configuration ##Distro Configuration Utility (raspi-config) ##
+
+    [[ -f /bin/raspi-config ]] && sudo raspi-config
+    
+}
