@@ -146,9 +146,8 @@ done
 fi
 
 if [[ $# -eq 0 ]] ; then
-  
-  [ -f "$libname" ] && tput smcup && clear  && run_whiptail ; tput rmcup
-  
-  [ ! -f "$libname" ] clear && echo -e "Library not found \033[5mrun makelib\033[0m\nDisplaying help file\n" && see_help
+  #Check if lkars library exist if not dispaly help
+  [ -f "$libname" ] && tput smcup && clear  && run_whiptail ; tput rmcup  
+  [ ! -f "$libname" ] && clear && echo -e "Library not found \033[5mrun makelib\033[0m\nDisplaying help file\n" && see_help
 
 fi
