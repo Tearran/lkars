@@ -14,9 +14,9 @@ versinfo="0.0.10"
 [[ -f /bin/raspi-config ]] && distro_congfig="raspi"
 [[ -f /usr/bin/armbian-config ]] && distro_congfig="armbian"
 
-
 #File location and name
 SRC="${BASH_SOURCE[0]}"
+
 #anables Dynamic directory root ~/ or /bin or /usr/sbin etc.. 
 DIRECTORY=$(cd $(dirname "$0") && pwd)
 
@@ -37,7 +37,7 @@ filename=$(basename "$SRC")
 # Colors = forground, background
 export NEWT_COLORS='
 root=,black
-border=white,black
+border=green,black
 title=green,black
 roottext=red,black
 window=red,black
@@ -95,7 +95,6 @@ while :
     # else end of loop and restart  
   done
 
-  
 }
 
 see_version()
@@ -103,25 +102,28 @@ see_version()
   echo " ${filename%.*} version $versinfo "
 }
 
-
-
 make_ifts()
 {
-
   #Library file name
-  itsname=libeft-its
-
-  #check system compatible   
+  itsname=libeft-its  
+  #Check for Eft-its library if not found generate its
+  if ( whiptail --title  "${filename%.*}" --yesno  "Generate libeft-its Library\n\n\n" 0 0  ) ; then
+  #Linux none distrabution spacific scripts   
   [[ -d "$DIRECTORY"/eft-its/ ]] && cat $( echo -e "$DIRECTORY"/eft-its/*.its )  >  "$DIRECTORY"/$itsname
+  #distrabution spacific scripts 
   [[ -d "$DIRECTORY"/eft-its/"${distro_congfig}"/ ]] && cat $( echo -e "$DIRECTORY"/eft-its/"${distro_congfig}"/*.its )  >>  "$DIRECTORY"/$itsname
-  bla=$( printf 'lkars-conf:\nMake library complete\nSytem set for %s \n\nPress OK to continue...' "${distro_congfig}" )
-  whiptail --title  "${filename%.*}" --msgbox "${bla}"  $(stty size)
-
-  #uncomment to run menu after build
-  #( bash $DIRECTORY/lkars-config )
-
+  #none listed distrabution other scripts 
+  [[ -d "$DIRECTORY"/eft-its/other/ ]] && cat $( echo -e "$DIRECTORY"/eft-its/other/*.its )  >>  "$DIRECTORY"/$itsname
+  
+  #Compleed message
+  bla=$( printf 'lkars-conf:\n\nLibrary generation complete\n\nSystem set for %s \n\n\nPress OK to continue...' "${distro_congfig}" ) 
+  whiptail --title  "${filename%.*}" --msgbox "${bla}" 0 0
+fi
 
 }
+
+#Generated library
+[[ $# -eq 0 ]] && ( ( [ -f "$libname" ] && run_whiptail ) || ( make_ifts && run_whiptail ) )
 
 see_help()
 {
@@ -130,24 +132,17 @@ see_help()
   echo -e "\t-h\tPrint this help."
   echo -e "\t-v\tPrint version info."
   echo -e "\t-m\tmakelib Generate eft-its library.\n"
-
 }
 
+#Help info
 if [[ $# -eq 1 ]] ; then
 while getopts ":hvm" opt; do
     case $opt in
       h) see_help break ;;
       v) see_version break ;;
-      m) make_ifts break ;;
+      m) ( make_ifts && run_whiptail ) ; break ;; #Re-Generated library
       ?) echo  -e "\033[33;5m?! Say What!?\033[0m" ; see_help break ;;
     esac
   exit
 done
-fi
-
-if [[ $# -eq 0 ]] ; then
-  #Check if lkars library exist if not dispaly help
-  [ -f "$libname" ] && tput smcup && clear  && run_whiptail ; tput rmcup  
-  [ ! -f "$libname" ] && clear && echo -e "Library not found \033[5mrun makelib\033[0m\nDisplaying help file\n" && see_help
-
 fi
