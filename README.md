@@ -1,6 +1,6 @@
 
 # lkars
-Linux Kernel Access Record Sensor data
+Linux Kernel Access Record Scan
 
 [![CodeFactor](https://www.codefactor.io/repository/github/tearran/lkars/badge)](https://www.codefactor.io/repository/github/tearran/lkars)
 ![Shields.io](https://img.shields.io/github/issues/Tearran/lkars)
