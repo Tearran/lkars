@@ -7,49 +7,44 @@ Linux Kernel Access Record Scan
 ![](https://img.shields.io/github/forks/Tearran/lkars)
 ![](https://img.shields.io/github/license/Tearran/lkars)
 
+`K.I.S.S. I.T.S (Keep it super simple) (include Tearran's scripts)`
+
 ## Lkars intended use:
 
-To Gather and Utilise well-known and established Open source methods of gpio and system control with a minimum of efforts
-Join us on [Discord](https://discord.gg/MENHMuTmyH)   
-## Target systems Debian
+To Gather and Utilise well-known established Open source methods of system setting & gpio control.
 
-- Banana pi
-   - M2 Zero - Teated working
+Join us on [Discord](https://discord.gg/MENHMuTmyH)   
+
+## Target systems: Debian
+
+- [Banana pi](https://www.banana-pi.org/)
+   - [M2 Zero](https://wiki.banana-pi.org/Banana_Pi_BPI-M2_ZERO) - Testing
 - Raspberry pi 
    - zero, zero w, zero 2 - Tested working
 - Libre Computer
-   - Le Potato - untested possible compatibility
+   - Le Potato - Untested - undecided
 
-## Current development 
-![Image URL](https://media.discordapp.net/attachments/984851337768497242/987640266825564210/lkars-config.png)
-### Focuse:
-- System boot configuration
-   - USB Gadget mode
-   
-### Working:
+## Current development and Focuse:
+
+## Working:
+### System Security scans
+   - [ClamaAV](https://www.clamav.net/) 
+      - Scan User space for known viruses.
+   - [Lynis](https://cisofy.com/lynis/) 
+      - Scan System for known vulnerabilities
+   - [chkrootkit.org](http://www.chkrootkit.org/)
+      - Scan System for knonw rootkits
+   - [Linux malware detect (LMD)](https://github.com/rfxn/linux-malware-detect) 
+      - Scan User space for knonw malware
 ### General hardware
 - System boot configuration
-   - Analyze Boot up sequence with BLAME ( boot / times )
-   - Distribution Config utility (raspi-config, armbian-config).
+   - Analyze Boot up sequence with [Systemd](https://systemd.io/)
+   - Distribution specific Configuration utility
+      - launches raspi-config [Rasbian](https://www.raspbian.org/)
+      - launches armbian-config [Armbian](https://www.armbian.com/)
 
-### Raspberry pi hardware (pi z/z2) Only.
-- Display module/driver [juj fbcp-ili9341](https://github.com/juj/fbcp-ili9341)
-   - ST7735, ST7735S, ST7735S Wide
-   - ST7789 Pirate Audio Phat
-   - ST7789 WaveShare Game Phat
-
-
-- Menu generation
-   - Basic bash Examples called eft-its
-   - Multy Funtion Example eft-its
-   - Menu format
-      - 2x#Catagory[:space:]2x#description[:space:]2x# 
-      - `##Example eft-its ##A sort discription of entry ##`
-      - see eft-its folder for examples
-- Download Project Source files
-   - `/home/$USER/.local/src/` 
-- getopt flags
-      
+### Example script
+- Mandelbrot set - Charles Cooke's 16-color Mandelbrot 
 ```bash
 Usage: lkars [ -h  | -v | -m ]
 Options:
