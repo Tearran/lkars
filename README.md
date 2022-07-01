@@ -45,6 +45,8 @@ Join us on [Discord](https://discord.gg/MENHMuTmyH)
 
 ### Example script
 - Mandelbrot set - Charles Cooke's 16-color Mandelbrot 
+- Space invaders - ninvaders ssh term game
+
 ```bash
 Usage: lkars [ -h  | -v | -m ]
 Options:
