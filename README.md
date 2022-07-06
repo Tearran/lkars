@@ -1,13 +1,14 @@
 
 # lkars
-Linux Kernel Access Record Scan
+Linux KISS Access Record Scan
+
+`K.I.S.S. I.T.S (Keep it super simple) (include Tearran's scripts)`
 
 [![CodeFactor](https://www.codefactor.io/repository/github/tearran/lkars/badge)](https://www.codefactor.io/repository/github/tearran/lkars)
 ![Shields.io](https://img.shields.io/github/issues/Tearran/lkars)
 ![](https://img.shields.io/github/forks/Tearran/lkars)
 ![](https://img.shields.io/github/license/Tearran/lkars)
 
-`K.I.S.S. I.T.S (Keep it super simple) (include Tearran's scripts)`
 
 ## Lkars intended use:
 
@@ -34,8 +35,8 @@ Join us on [Discord](https://discord.gg/MENHMuTmyH)
       - Scan System for known vulnerabilities
    - [chkrootkit.org](http://www.chkrootkit.org/)
       - Scan System for knonw rootkits
-   - [Linux malware detect (LMD)](https://github.com/rfxn/linux-malware-detect) 
-      - Scan User space for knonw malware
+   - ~Linux malware detect (LMD)[](https://github.com/rfxn/linux-malware-detect)~
+     
 ### General hardware
 - System boot configuration
    - Analyze Boot up sequence with [Systemd](https://systemd.io/)
@@ -45,7 +46,6 @@ Join us on [Discord](https://discord.gg/MENHMuTmyH)
 
 ### Example script
 - Mandelbrot set - Charles Cooke's 16-color Mandelbrot 
-- Space invaders - ninvaders ssh term game
 
 ```bash
 Usage: lkars [ -h  | -v | -m ]
