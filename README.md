@@ -10,7 +10,7 @@ Linux KISS Access Record Scan
 ![](https://img.shields.io/github/license/Tearran/lkars)
 
 
-## Lkars intended use:
+## lkars intended use:
 
 To Gather and Utilise well-known established Open source methods of system setting & gpio control.
 
