@@ -1,8 +1,8 @@
 
 # lkars
-Linux KISS Access Record Scan
+Linux Kernel to Access and Record Sensor data
 
-`K.I.S.S. I.T.S (Keep it super simple) (include Tearran's scripts)`
+its (include Tearran's scripts)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/tearran/lkars/badge)](https://www.codefactor.io/repository/github/tearran/lkars)
 ![Shields.io](https://img.shields.io/github/issues/Tearran/lkars)
