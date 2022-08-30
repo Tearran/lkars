@@ -9,26 +9,24 @@
 # versinfo="1.0.0" first stable release
 versinfo="0.0.10"
 
-#Check for existing Distrabution Config
-# K.I.S.S. option for future compatibility checks
+#Distrabution Compatibility check
 [[ -f /bin/raspi-config ]] && distro_congfig="raspi"
 [[ -f /usr/bin/armbian-config ]] && distro_congfig="armbian"
 
-#File location and name
+#File location and name 
 SRC="${BASH_SOURCE[0]}"
 
-#anables Dynamic directory root ~/ or /bin or /usr/sbin etc.. 
+#Enable Dynamic directory root ~/ or /bin or /usr/sbin etc.. 
 DIRECTORY=$(cd $(dirname "$0") && pwd)
 
 # The name of the File without the leading path
-# used for file id if name changed
 filename=$(basename "$SRC")
 
-#Path to librarie if installed /user/lib/
-[ -f /usr/lib/libeft-its ] && libname=/user/lib/libeft-its
+#Path to librarie if installed /user/lib/ (system mode)
+[ -f /usr/lib/lib-its ] && libname=/user/lib/lib-its
 
-#path to library if not installed (dev mode)
-[ ! -f /usr/lib/libeft-its ] && libname=$(dirname "$0")/libeft-its
+#path to library if not installed ( dev/user mode)
+[ ! -f /usr/lib/lib-its ] && libname=$(dirname "$0")/lib-its
 
 #include library
 [ -f "$libname" ] && . "$libname"
@@ -52,7 +50,7 @@ actcheckbox=black,green
 '
 
 #Menu Generation
-#Grep, sort and sed to filter data
+#read, sort and and filter data
 run_whiptail()
 {
   #Consol size used for whiptail
