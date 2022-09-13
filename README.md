@@ -4,10 +4,10 @@ Linux Kernel to Access and Record Sensor data
 
 its (include Tearran's scripts)
 
-[![CodeFactor](https://www.codefactor.io/repository/github/tearran/lkars-setup/badge)](https://www.codefactor.io/repository/github/tearran/lkars-setup)
-![Shields.io](https://img.shields.io/github/issues/Tearran/lkars-setup)
-![](https://img.shields.io/github/forks/Tearran/lkars-setup)
-![](https://img.shields.io/github/license/Tearran/lkars-setup)
+[![CodeFactor](https://www.codefactor.io/repository/github/tearran/lkars/badge)](https://www.codefactor.io/repository/github/tearran/lkars)
+![Shields.io](https://img.shields.io/github/issues/Tearran/lkars)
+![](https://img.shields.io/github/forks/Tearran/lkars)
+![](https://img.shields.io/github/license/Tearran/lkars)
 
 
 ## lkars intended use:
