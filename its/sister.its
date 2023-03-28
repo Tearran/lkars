@@ -1,0 +1,38 @@
+
+go_sister(){
+##Projects ##SenPi (Sensor Integrating API) ##
+
+if [ ! -d "$HOME/.local/src" ]; then
+    mkdir -p "$HOME/.local/src"
+	cd "$HOME/.local/src"
+	wrkdir=$(pwd)
+else
+    cd "$HOME/.local/src"
+	wrkdir=$(pwd)
+fi
+
+# Check if git and pip3 are installed
+
+if ! command -v git &> /dev/null; then
+    apt_package+=("git")
+fi
+
+if ! command -v pip3 &> /dev/null; then
+    echo "Pip3 is not installed"
+    apt_package+=("python3-pip")
+fi
+
+if [ ${#apt_package[@]} -eq 0 ]; then
+    echo "All required apt packages are installed"
+else
+    sudo apt update
+    sudo apt install -y "${apt_package[@]}"
+fi
+
+if [ ! -d "$HOME/.local/src/sister" ]; then
+    echo "Downloading git repository"
+	cd "$HOME/.local/src" && git clone https://github.com/Tearran/sister.git
+fi
+
+}
+go_sister
