@@ -25,24 +25,14 @@ Join us on [Discord](https://discord.gg/MENHMuTmyH)
 - Libre Computer
    - Le Potato - Untested - undecided
 
-## Current development and Focuse:
 
-## Working:
-### System Security scans
-   - [ClamaAV](https://www.clamav.net/) 
-      - Scan User space for known viruses.
-   - [Lynis](https://cisofy.com/lynis/) 
-      - Scan System for known vulnerabilities
-   - [chkrootkit.org](http://www.chkrootkit.org/)
-      - Scan System for knonw rootkits
-   - ~Linux malware detect (LMD)[](https://github.com/rfxn/linux-malware-detect)~
-     
+    
 ### General hardware
 - System boot configuration
    - Analyze Boot up sequence with [Systemd](https://systemd.io/)
-   - Distribution specific Configuration utility
-      - launches raspi-config [Rasbian](https://www.raspbian.org/)
-      - launches armbian-config [Armbian](https://www.armbian.com/)
+   - Configuration utility
+      - raspi-config [Rasbian](https://www.raspbian.org/)
+      - armbian-config [Armbian](https://www.armbian.com/)
 
 ### Example script
 - Mandelbrot set - Charles Cooke's 16-color Mandelbrot 
@@ -54,3 +44,13 @@ Options:
         -v      Print version info.
         -m      makelib Generate library.
 ```
+## Current development and Focuse:
+## Tested and planed:
+### System Security scans
+   - [ClamaAV](https://www.clamav.net/) 
+      - Scan User space for known viruses.
+   - [Lynis](https://cisofy.com/lynis/) 
+      - Scan System for known vulnerabilities
+   - [chkrootkit.org](http://www.chkrootkit.org/)
+      - Scan System for knonw rootkits
+   - ~Linux malware detect (LMD)[](https://github.com/rfxn/linux-malware-detect)~
