@@ -23,7 +23,7 @@ function colorBox {
 }
 
 see_mandelbrot(){
-##Example eft-its ##Charles Cooke's 16-color Mandelbrot ##
+##Projects ##Charles Cooke's 16-color Mandelbrot ##
 
   tput smcup && clear
   	unset -v lastclr
