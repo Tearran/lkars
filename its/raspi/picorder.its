@@ -1,8 +1,0 @@
-
-go_pycorder(){
-##Projects ##Picorder ##
-
-  sys_blame=$( echo "Place holder for PicorderOS" )
-  whiptail --title "analyze blame" --msgbox "$( printf '%s\n' "${sys_blame[@]}" )" $(stty size) --scrolltext
-
-}
