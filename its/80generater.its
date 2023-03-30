@@ -1,6 +1,6 @@
 
 build_its(){
-##LKARS Configuration ##User Tools Generater ##
+##LKARS Configuration ##User menu Generater ##
 
 APP_NAME=$(whiptail --title "Tool generator" --inputbox "Enter tools Name, no spaces or specile charicters: " 10 60 3>&1 1>&2 2>&3)
 
