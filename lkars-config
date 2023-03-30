@@ -34,21 +34,21 @@ filename=$(basename "$SRC")
 # Newt color theme for whiptail
 # Colors = forground, background
 
-#export NEWT_COLORS='
-#root=,black
-#border=green,black
-#title=green,black
-#roottext=red,black
-#window=red,black
-#textbox=white,black
-#button=black,green
-#compactbutton=white,black
-#listbox=white,black
-#actlistbox=black,white
-#actsellistbox=black,green
-#checkbox=green,black
-#actcheckbox=black,green
-#'
+export NEWT_COLORS='
+root=,black
+border=green,black
+title=green,black
+roottext=red,black
+window=red,black
+textbox=white,black
+button=black,green
+compactbutton=white,black
+listbox=white,black
+actlistbox=black,white
+actsellistbox=black,green
+checkbox=green,black
+actcheckbox=black,green
+'
 
 #Menu Generation
 #read, sort and and filter data
@@ -122,7 +122,7 @@ fi
 }
 
 #Generated library
-[[ $# -eq 0 ]] && ( ( [ -f "$libname" ] && run_whiptail ) || ( make_ifts && run_whiptail ) )
+[[ $# -eq 0 ]] && ( ( [ -f "$libname" ] && run_whiptail ) || ( make_ifts ) )
 
 see_help()
 {

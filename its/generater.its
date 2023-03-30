@@ -1,0 +1,16 @@
+
+build_its(){
+##LKARS Tools ##Menu 'its' Generater ##
+
+APP_NAME=$(whiptail --title "Enter an 'its' Name, no spaces or specile charicters " --inputbox "Enter your app name:" 10 60 3>&1 1>&2 2>&3)
+
+if [ ! -f "$(dirname "$0")/its/${APP_NAME}.its" ] ; then
+APP_DESC=$(whiptail --title "Enter a bash command" --inputbox "Enter a bash command:" 10 60 3>&1 1>&2 2>&3)
+printf "\n\nrun_${APP_NAME}(){\n\x23\x23User\x20generated\x20tools\x20\x23\x23${APP_NAME}\x20\x23\x23\n\t${APP_DESC}\n}\n" > "$(dirname "$0")/its/${APP_NAME}.its"
+whiptail --title "Success" --msgbox "$( echo ${APP_NAME} ).its has been created!" 10 60
+else
+whiptail --title "Error" --msgbox "$( echo ${APP_NAME} ).its file exist!\nPllease try agian" 10 60
+return 1
+fi
+
+}

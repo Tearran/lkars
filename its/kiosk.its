@@ -1,0 +1,49 @@
+
+set_kiosk(){
+##Projects ##Kiosk Fullscreen browser ##
+
+sudo apt update
+sudo apt install --no-install-recommends xserver-xorg-video-all xserver-xorg-input-all xserver-xorg-core xinit x11-xserver-utils chromium-browser unclutter -y
+
+if ! grep -q -F '# added by lkasrs config' $HOME/.bashrc
+  then
+	echo ""
+	echo "# added by lkasrs config"
+    simpleServer="python3 -m http.server 8000 --dir ~/.local/src/sister/senpi/  > /dev/null 2>&1 &"
+	echo "$simpleServer" >> $HOME/.bashrc
+	string='if [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ]; then startx; fi'
+	echo $string >> $HOME/.bashrc
+    echo "# end"
+fi
+
+url=$(printf "http://%s:%d" $(hostname -I) "8000")
+
+cat << EOF > $HOME/.xinitrc
+
+#!/usr/bin/env sh
+xset -dpms
+xset s off
+xset s noblank
+
+
+
+unclutter &
+chromium-browser $url \
+  --window-size=1280,800 \
+  --window-position=0,0 \
+  --start-fullscreen \
+  --kiosk \
+  --incognito \
+  --noerrdialogs \
+  --disable-translate \
+  --no-first-run \
+  --fast \
+  --fast-start \
+  --disable-infobars \
+  --disable-features=TranslateUI \
+  --disk-cache-dir=/dev/null \
+  --overscroll-history-navigation=0 \
+  --disable-pinch
+EOF
+
+} 

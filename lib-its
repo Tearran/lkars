@@ -1,0 +1,178 @@
+
+systemd_blame(){
+##System Tools ##Analyze Boot up sequence with BLAME ##
+
+  sys_blame=$( systemd-analyze blame )
+  whiptail --title "analyze blame" --msgbox "$( printf '%s\n' "${sys_blame[@]}" )" $(stty size) --scrolltext
+
+} 
+
+build_its(){
+##LKARS Tools ##Menu 'its' Generater ##
+
+APP_NAME=$(whiptail --title "Enter an 'its' Name, no spaces or specile charicters " --inputbox "Enter your app name:" 10 60 3>&1 1>&2 2>&3)
+
+if [ ! -f "$(dirname "$0")/its/${APP_NAME}.its" ] ; then
+APP_DESC=$(whiptail --title "Enter a bash command" --inputbox "Enter a bash command:" 10 60 3>&1 1>&2 2>&3)
+printf "\n\nrun_${APP_NAME}(){\n\x23\x23User\x20generated\x20tools\x20\x23\x23${APP_NAME}\x20\x23\x23\n\t${APP_DESC}\n}\n" > "$(dirname "$0")/its/${APP_NAME}.its"
+whiptail --title "Success" --msgbox "$( echo ${APP_NAME} ).its has been created!" 10 60
+else
+whiptail --title "Error" --msgbox "$( echo ${APP_NAME} ).its file exist!\nPllease try agian" 10 60
+return 1
+fi
+
+}
+
+set_kiosk(){
+##Projects ##Kiosk Fullscreen browser ##
+
+sudo apt update
+sudo apt install --no-install-recommends xserver-xorg-video-all xserver-xorg-input-all xserver-xorg-core xinit x11-xserver-utils chromium-browser unclutter -y
+
+if ! grep -q -F '# added by lkasrs config' $HOME/.bashrc
+  then
+	echo ""
+	echo "# added by lkasrs config"
+    simpleServer="python3 -m http.server 8000 --dir ~/.local/src/sister/senpi/  > /dev/null 2>&1 &"
+	echo "$simpleServer" >> $HOME/.bashrc
+	string='if [ -z $DISPLAY ] && [ $(tty) = /dev/tty1 ]; then startx; fi'
+	echo $string >> $HOME/.bashrc
+    echo "# end"
+fi
+
+url=$(printf "http://%s:%d" $(hostname -I) "8000")
+
+cat << EOF > $HOME/.xinitrc
+
+#!/usr/bin/env sh
+xset -dpms
+xset s off
+xset s noblank
+
+
+
+unclutter &
+chromium-browser $url \
+  --window-size=1280,800 \
+  --window-position=0,0 \
+  --start-fullscreen \
+  --kiosk \
+  --incognito \
+  --noerrdialogs \
+  --disable-translate \
+  --no-first-run \
+  --fast \
+  --fast-start \
+  --disable-infobars \
+  --disable-features=TranslateUI \
+  --disk-cache-dir=/dev/null \
+  --overscroll-history-navigation=0 \
+  --disable-pinch
+EOF
+
+} 
+
+# Requiers EFT-ITS format to show in menu is
+# double shh (2x#) singleString (2X#) Short multy string discription
+
+# Charles Cooke's 16-color Mandelbrot
+# http://earth.gkhs.net/ccooke/shell.html
+
+function doBash {
+	typeset P Q X Y a b c i v x y
+	for ((P=10**8,Q=P/100,X=320*Q/cols,Y=210*Q/lines,y=-105*Q,v=-220*Q,x=v;y<105*Q;x=v,y+=Y)); do
+		for ((;x<P;a=b=i=c=0,x+=X)); do
+			for ((;a**2+b**2<4*P**2&&i++<99;a=((c=a)**2-b**2)/P+x,b=2*c*b/P+y)); do :
+			done
+			colorBox $((i<99?i%16:0))
+		done
+		echo
+	done
+}
+
+function colorBox {
+	(($1==lastclr)) || printf %s "${colrs[lastclr=$1]:=$(tput setaf "$1")}"
+	printf '\u2588'
+}
+
+see_mandelbrot(){
+##Projects ##Charles Cooke's 16-color Mandelbrot ##
+
+  tput smcup && clear
+  	unset -v lastclr
+  	((cols=$(tput cols)-1, lines=$(tput lines)))
+  	typeset -a colrs
+	  trap 'tput sgr0; echo' EXIT
+  	${BASH_VERSION+doBash}
+  $( printf '%s/n' "Press a key already.." && read -r -n 1 )
+  tput rmcup
+
+}
+
+go_pycorder(){
+##Projects ##Picorder ##
+
+  sys_blame=$( echo "Place holder for PicorderOS" )
+  whiptail --title "analyze blame" --msgbox "$( printf '%s\n' "${sys_blame[@]}" )" $(stty size) --scrolltext
+
+}
+
+go_sister(){
+##Projects ##SenPi (Sensor Integrating API) ##
+
+if [ ! -d "$HOME/.local/src" ]; then
+    mkdir -p "$HOME/.local/src"
+	cd "$HOME/.local/src"
+	wrkdir=$(pwd)
+else
+    cd "$HOME/.local/src"
+	wrkdir=$(pwd)
+fi
+
+# Check if git and pip3 are installed
+
+if ! command -v git &> /dev/null; then
+    apt_package+=("git")
+fi
+
+if ! command -v pip3 &> /dev/null; then
+    echo "Pip3 is not installed"
+    apt_package+=("python3-pip")
+fi
+
+if [ ${#apt_package[@]} -eq 0 ]; then
+    echo "All required apt packages are installed"
+else
+    sudo apt update
+    sudo apt install -y "${apt_package[@]}"
+fi
+
+if [ ! -d "$HOME/.local/src/sister" ]; then
+    echo "Downloading git repository"
+	cd "$HOME/.local/src" && git clone https://github.com/Tearran/sister.git
+fi
+
+}
+
+
+run_test(){
+##User generated tools ##test ##
+	echo "hello"
+}
+
+get_update(){
+##Security Tools ##Apt Update system's package list ##
+
+  	whiptail --title "Update apt" --yesno "$( echo 'Are you sure you want to run <sudo apt update>?' )" 8 78
+  	response=$?
+    if [ $response -eq 0 ]; then
+		sudo apt update
+	fi
+}
+
+dist_conf(){
+##System Tools ##Configuration Utility (raspi-config) ##
+
+    [[ -f /bin/raspi-config ]] && sudo raspi-config
+    
+}

@@ -35,4 +35,3 @@ if [ ! -d "$HOME/.local/src/sister" ]; then
 fi
 
 }
-go_sister
