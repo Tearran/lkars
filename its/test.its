@@ -1,6 +1,0 @@
-
-
-run_test(){
-##User generated tools ##test ##
-	echo "hello"
-}

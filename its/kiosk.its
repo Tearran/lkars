@@ -1,6 +1,6 @@
 
 set_kiosk(){
-##Projects ##Kiosk Fullscreen browser ##
+##User generated tools ##Kiosk Fullscreen browser ##
 
 sudo apt update
 sudo apt install --no-install-recommends xserver-xorg-video-all xserver-xorg-input-all xserver-xorg-core xinit x11-xserver-utils chromium-browser unclutter -y

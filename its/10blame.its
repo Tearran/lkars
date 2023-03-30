@@ -1,6 +1,6 @@
 
 systemd_blame(){
-##System Tools ##Analyze Boot up sequence with BLAME ##
+##System Tools ##Analyze Boot up sequence (systemd-analyze blame) ##
 
   sys_blame=$( systemd-analyze blame )
   whiptail --title "analyze blame" --msgbox "$( printf '%s\n' "${sys_blame[@]}" )" $(stty size) --scrolltext

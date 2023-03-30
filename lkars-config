@@ -7,7 +7,7 @@ clear
 # versinfo="0.0.1" first alpha
 # versinfo="0.1.0" first release
 # versinfo="1.0.0" first stable release
-versinfo="0.1.0"
+versinfo="0.1.1"
 
 #Distrabution Compatibility check
 [[ -f /bin/raspi-config ]] && distro_congfig="raspi"
@@ -68,7 +68,7 @@ run_whiptail()
 end=0
 while :
   do
-
+	clear
     # Display Main\Catagory menu 
     cat_result=$(whiptail --title  "${filename%.*}" --cancel-button Finish --menu --clear " " "$rows" "$cols" "$end" "${cat_loop[@]}" 3>&2 2>&1 1>&3- )
     
@@ -91,7 +91,7 @@ while :
     # if selected Excute selected Sub menu function
     [[ -n $dis_result ]] && "${fun_loop[$dis_result]}"
 
-    # else end of loop and restart  
+    # else end of loop and restart
   done
 
 }
@@ -105,8 +105,8 @@ make_ifts()
 {
   #Library file name
   itsname=lib-its  
-  #Check for Eft-its library if not found generate its
-  if ( whiptail --title  "${filename%.*}" --yesno  "Generate libeft-its Library\n\n\n" 0 0  ) ; then
+  #Check for lkars-its library if not found generate its
+  if ( whiptail --title  "${filename%.*}" --yesno  "\nGenerate lkars-config Library?\n\n" 0 0  ) ; then
   #Linux none distrabution spacific scripts   
   [[ -d "$DIRECTORY"/its/ ]] && cat $( echo -e "$DIRECTORY"/its/*.its )  >  "$DIRECTORY"/$itsname
   #distrabution spacific scripts 

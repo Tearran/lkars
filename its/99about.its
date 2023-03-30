@@ -1,0 +1,15 @@
+
+
+run_about(){
+##LKARS Configuration ##about ##
+
+  whiptail --msgbox "\
+This is beta software:
+Some of the options may have difficulties if you have heavily customised your installation.
+
+lkars-config provides configuration of the Raspberry Pi.
+lkars-config can be run at any time. \
+
+" 20 70 1
+
+}

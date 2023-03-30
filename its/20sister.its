@@ -1,6 +1,6 @@
 
 go_sister(){
-##Projects ##SenPi (Sensor Integrating API) ##
+##LKARS Configuration ##SenPi (Sensor Integrating API) ##
 
 if [ ! -d "$HOME/.local/src" ]; then
     mkdir -p "$HOME/.local/src"
@@ -23,7 +23,8 @@ if ! command -v pip3 &> /dev/null; then
 fi
 
 if [ ${#apt_package[@]} -eq 0 ]; then
-    echo "All required apt packages are installed"
+    mssg="'All required apt packages are installed'"
+    whiptail --title "Error" --msgbox "$( echo ${mssg} )" 10 60
 else
     sudo apt update
     sudo apt install -y "${apt_package[@]}"
