@@ -1,0 +1,13 @@
+#/bin/bash
+dir="$HOME/.local/src"
+
+if [ -d $dir ] ; then
+cd "$dir"
+wget https://github.com/Tearran/lkars/archive/refs/tags/v0.1.1.zip ; unzip "$dir/v0.1.1.zip" ; mv "$dir/lkars-0.1.1" "$dir/lkars"
+else
+mkdir $dir
+cd $dir
+wget https://github.com/Tearran/lkars/archive/refs/tags/v0.1.1.zip ; unzip "$dir/v0.1.1.zip" ; mv "$dir/lkars-0.1.1" "$dir/lkars"
+fi
+chmod +x "$dir/lkars/lkars-config"
+bash "$dir/lkars/lkars-config"
