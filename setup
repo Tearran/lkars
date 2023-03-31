@@ -11,3 +11,14 @@ wget https://github.com/Tearran/lkars/archive/refs/tags/v0.1.1.zip ; unzip "$dir
 fi
 chmod +x "$dir/lkars/lkars-config"
 bash "$dir/lkars/lkars-config"
+
+# set lkars path
+if grep -q -F 'PATH="$HOME/.local/src/lkars:$PATH"' "$HOME/.profile"; then
+  echo "LKARS PATH is already set in $HOME/.profile"
+else
+  echo 'if [ -d "$HOME/.local/src/lkars" ] ; then
+  PATH="$HOME/.local/src/lkars:$PATH"
+fi' >> "$HOME/.profile"
+  echo "LKARS PATH has been added to $HOME/.profile"
+  echo "Please reboot to complete the installation"
+fi
