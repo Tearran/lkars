@@ -7,6 +7,17 @@
 
 LKARS is a lightweight and modular runtime system configuration utility. LKARS is designed to install, set up, and customize various system tools and applications for use with I2C sensors. The utility is flexible enough to allow for user-generated commands 
 
+### Easy setup.
+```bash
+wget https://raw.githubusercontent.com/Tearran/lkars/master/setup ; bash ./setup
+```
+running development 
+```bash
+bash $HOME/.local/src/lkars/lkars-config
+```
+running installed
+- in development
+
 Join us on [Discord](https://discord.gg/MENHMuTmyH)
 
 ### Target Systems
