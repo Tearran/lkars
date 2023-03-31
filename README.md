@@ -1,85 +1,49 @@
-
-## Example Project
-
-This project is designed to showcase the use of various programming languages and technologies in developing a complex application. The main objectives of the project include:
-
-- Developing a web application that provides users with real-time data visualizations and analytics
-- Integrating multiple data sources and APIs to create a comprehensive data set
-- Implementing machine learning algorithms to analyze and predict trends in the data
-- Developing a user-friendly interface that can be easily customized and configured
-
-The project is developed using a variety of programming languages and technologies, including Python, JavaScript, HTML/CSS, and various machine learning libraries. Testing and optimization are key priorities throughout the development process to ensure that the application is performant, scalable, and reliable.
-
-To contribute to the project, please see the instructions in the `CONTRIBUTING.md` file.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# lkars
-Linux Kernel to Access and Record Sensor data
-
-its (include Tearran's scripts)
-
+# LKARS
+## Lightweight Kernel-Assisted Runtime System
 [![CodeFactor](https://www.codefactor.io/repository/github/tearran/lkars/badge)](https://www.codefactor.io/repository/github/tearran/lkars)
 ![Shields.io](https://img.shields.io/github/issues/Tearran/lkars)
 ![](https://img.shields.io/github/forks/Tearran/lkars)
 ![](https://img.shields.io/github/license/Tearran/lkars)
 
+LKARS is a lightweight and modular runtime system configuration utility. LKARS is designed to install, set up, and customize various system tools and applications for use with I2C sensors. The utility is flexible enough to allow for user-generated commands 
 
-## lkars intended use:
+Join us on [Discord](https://discord.gg/MENHMuTmyH)
 
-To Gather and Utilise well-known established Open source methods of system setting & gpio control.
+### Target Systems
 
-Join us on [Discord](https://discord.gg/MENHMuTmyH)   
+- Debian
+- Banana Pi, M2 Zero (Testing)
+- Raspberry Pi Zero, Zero W, Zero 2 (Tested working)
+- Libre Computer Le Potato (Untested - undecided)
+- General hardware
 
-## Target systems: Debian
+## Features
+### Setup Tools
+- SenPi
 
-- [Banana pi](https://www.banana-pi.org/)
-   - [M2 Zero](https://wiki.banana-pi.org/Banana_Pi_BPI-M2_ZERO) - Testing
-- Raspberry pi 
-   - zero, zero w, zero 2 - Tested working
-- Libre Computer
-   - Le Potato - Untested - undecided
+### System Boot Configuration
+- Analyze boot up sequence with Systemd
+
+### Configuration Utility
+- raspi-config (Raspbian)
+- armbian-config (Armbian)
+
+## Current Development Focus
+- SenPI sensor api
+- picorederOS https://github.com/directive0/picorderOS
+
+### Development Goals
+- Test and optimize system performance
+- Optimize resource usage
+- Ensure each workload operates within its resource constraints and meets its specified goals
+- Continuously refine and improve the system based on user feedback
+
+### Future Work
+- Integration with additional sensor types
+- Enhanced customization options for users
+- Improved documentation and user guides
+- Robust error handling and reporting
+
+  
 
 
-    
-### General hardware
-- System boot configuration
-   - Analyze Boot up sequence with [Systemd](https://systemd.io/)
-   - Configuration utility
-      - raspi-config [Rasbian](https://www.raspbian.org/)
-      - armbian-config [Armbian](https://www.armbian.com/)
-
-### Example script
-- Mandelbrot set - Charles Cooke's 16-color Mandelbrot 
-
-```bash
-Usage: lkars [ -h  | -v | -m ]
-Options:
-        -h      Print this help.
-        -v      Print version info.
-        -m      makelib Generate library.
-```
-## Current development and Focuse:
-## Tested and planed:
-### System Security scans
-   - [ClamaAV](https://www.clamav.net/) 
-      - Scan User space for known viruses.
-   - [Lynis](https://cisofy.com/lynis/) 
-      - Scan System for known vulnerabilities
-   - [chkrootkit.org](http://www.chkrootkit.org/)
-      - Scan System for knonw rootkits
-   - ~Linux malware detect (LMD)[](https://github.com/rfxn/linux-malware-detect)~
