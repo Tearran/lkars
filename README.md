@@ -18,7 +18,10 @@ Join us on [Discord](https://discord.gg/MENHMuTmyH)
   - Banana Pi, M2 Zero (Testing)
 - (Untested - undecided)
   - Libre Computer Le Potato
-
+  
+## Current Development Focus
+- SenPI Sensor API
+- picorederOS https://github.com/directive0/picorderOS
 
 ## Features
 ### Setup Tools
@@ -31,9 +34,7 @@ Join us on [Discord](https://discord.gg/MENHMuTmyH)
 - raspi-config (Raspbian)
 - armbian-config (Armbian)
 
-## Current Development Focus
-- SenPI sensor api
-- picorederOS https://github.com/directive0/picorderOS
+
 
 ### Development Goals
 - Test and optimize system performance
