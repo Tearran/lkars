@@ -12,10 +12,13 @@ Join us on [Discord](https://discord.gg/MENHMuTmyH)
 ### Target Systems
 
 - Debian
-- Banana Pi, M2 Zero (Testing)
-- Raspberry Pi Zero, Zero W, Zero 2 (Tested working)
-- Libre Computer Le Potato (Untested - undecided)
+- Raspberry Pi Zero, Zero W, Zero 2 
 - General hardware
+- (Tested working)
+  - Banana Pi, M2 Zero (Testing)
+- (Untested - undecided)
+  - Libre Computer Le Potato
+
 
 ## Features
 ### Setup Tools
