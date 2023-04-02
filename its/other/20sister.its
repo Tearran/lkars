@@ -1,6 +1,6 @@
 
 go_sister(){
-##Sensor Tools ##SenPi (Sensor Integrating API) ##
+##Sensor   Tools ##SenPi (Sensor Integrating API) ##
 
 if [ ! -d "$HOME/.local/src" ]; then
     mkdir -p "$HOME/.local/src"
