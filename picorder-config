@@ -32,8 +32,8 @@ filename=$(basename "$SRC")
 [ -f "$libname" ] && . "$libname"
 
 # Newt color theme for whiptail
-[ -f $(dirname "$0")/theme/theme.its ] && source ./its/theme/theme.its
-
+[ -f $(dirname "$0")/its/theme/theme ] && source $(dirname "$0")/its/theme/$(cat $(dirname "$0")/its/theme/theme )
+#[ -f "$(dirname "$0")/its/theme/theme" ] && source "$(dirname "$0")/its/theme/theme"
 #Menu Generation
 #read, sort and and filter data
 run_whiptail()
@@ -97,7 +97,7 @@ make_ifts()
   [[ -d "$DIRECTORY"/its/"${distro_congfig}"/ ]] && cat $( echo -e "$DIRECTORY"/its/"${distro_congfig}"/*.its )  >>  "$DIRECTORY"/$itsname
  
   #Compleed message
-  bla=$( printf 'lkars-conf:\n\nLibrary generation complete\n\nSystem set for %s \n\n\nPress OK to continue...' "${distro_congfig}" ) 
+  bla=$( printf '\nLibrary Generation complete\n\tSystem set for %s \n\n\nPress OK to continue...' "${distro_congfig}" ) 
   whiptail --title  "${filename%.*}" --msgbox "${bla}" 0 0
 fi
 

@@ -1,0 +1,17 @@
+
+build_its(){
+##User-contributed Tools ##User menu Generater ##
+
+APP_NAME=$(whiptail --title "Tool generator" --inputbox "Enter tools Name, no spaces or specile charicters: " 10 60 3>&1 1>&2 2>&3)
+
+if [ ! -f "$(dirname "$0")/its/other/${APP_NAME}.its" ] ; then
+APP_DESC=$(whiptail --title "Enter a bash command" --inputbox "Enter a bash command:" 10 60 3>&1 1>&2 2>&3)
+printf "\n\nrun_${APP_NAME}(){\n\x23\x23User-contributed\x20Tools\x20\x23\x23${APP_NAME}\x20\x23\x23\n\t${APP_DESC}\n}\n" > "$(dirname "$0")/its/other/${APP_NAME}.its"
+make_ifts
+exit
+else
+whiptail --title "Error" --msgbox "$( echo ${APP_NAME} ).its file exist!\nPllease try agian" 10 60
+return 1
+fi
+
+}

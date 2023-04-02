@@ -1,4 +1,4 @@
-export NEWT_COLORS='
+export NEWT_COLORS="
 root=,black
 border=green,black
 title=green,black
@@ -12,4 +12,4 @@ actlistbox=black,white
 actsellistbox=black,green
 checkbox=green,black
 actcheckbox=black,green
-'
+"

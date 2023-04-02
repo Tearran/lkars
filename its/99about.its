@@ -1,8 +1,6 @@
 
-
-run_about(){
-##LKARS Configuration ##about ##
-
+run_about()
+{
   whiptail --msgbox "\
 This is beta software:
 Some of the options may have difficulties if you have heavily customised your installation.
