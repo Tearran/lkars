@@ -39,7 +39,7 @@ fi
 
 
 run_about(){
-##picoreder Configuration ##about ##
+##picorder Configuration ##about ##
 
   whiptail --msgbox "\
 This is beta software:

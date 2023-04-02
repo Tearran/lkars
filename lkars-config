@@ -23,10 +23,10 @@ DIRECTORY=$(cd $(dirname "$0") && pwd)
 filename=$(basename "$SRC")
 
 #Path to librarie if installed /user/lib/ (system mode)
-[ -f /usr/lib/lib-its ] && libname=/user/lib/lib-its
+[ -f /usr/lib/its-lib ] && libname=/user/lib/its-lib
 
 #path to library if not installed ( dev/user mode)
-[ ! -f /usr/lib/lib-its ] && libname=$(dirname "$0")/lib-its
+[ ! -f /usr/lib/its-lib ] && libname=$(dirname "$0")/its-lib
 
 #include library
 [ -f "$libname" ] && . "$libname"
@@ -104,22 +104,22 @@ see_version()
 make_ifts()
 {
   #Library file name
-  itsname=lib-its  
+  itsname=its-lib  
   #Check for lkars-its library if not found generate its
-  if ( whiptail --title  "${filename%.*}" --yesno  "\nGenerate lkars-config Library?\n\n" 0 0  ) ; then
-  #Linux none distrabution spacific scripts   
-  [[ -d "$DIRECTORY"/its/ ]] && cat $( echo -e "$DIRECTORY"/its/*.its )  >  "$DIRECTORY"/$itsname
-  #distrabution spacific scripts 
+  if ( whiptail --title  "${filename%.*}" --yesno  "\nGenerating requered Library?\n\n" 0 0  ) ; then
+  #Contributor spacific scripts   
+  [[ -d "$DIRECTORY"/its/other ]] && cat $( echo -e "$DIRECTORY"/its/other/*.its )  >  "$DIRECTORY"/$itsname
+ #distrabution spacific scripts 
   [[ -d "$DIRECTORY"/its/"${distro_congfig}"/ ]] && cat $( echo -e "$DIRECTORY"/its/"${distro_congfig}"/*.its )  >>  "$DIRECTORY"/$itsname
-  #none listed distrabution other scripts 
-  [[ -d "$DIRECTORY"/its/other/ ]] && cat $( echo -e "$DIRECTORY"/its/other/*.its )  >>  "$DIRECTORY"/$itsname
-  
+ 
   #Compleed message
   bla=$( printf 'lkars-conf:\n\nLibrary generation complete\n\nSystem set for %s \n\n\nPress OK to continue...' "${distro_congfig}" ) 
   whiptail --title  "${filename%.*}" --msgbox "${bla}" 0 0
 fi
 
 }
+
+
 
 #Generated library
 [[ $# -eq 0 ]] && ( ( [ -f "$libname" ] && run_whiptail ) || ( make_ifts ) )
@@ -130,7 +130,7 @@ see_help()
   echo -e "Options:"
   echo -e "\t-h\tPrint this help."
   echo -e "\t-v\tPrint version info."
-  echo -e "\t-m\tmakelib Generate eft-its library.\n"
+  echo -e "\t-m\tGenerate library.\n"
 }
 
 #Help info
