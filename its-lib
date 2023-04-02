@@ -1,41 +1,4 @@
 
-# Requiers EFT-ITS format to show in menu is
-# double shh (2x#) singleString (2X#) Short multy string discription
-
-# Charles Cooke's 16-color Mandelbrot
-# http://earth.gkhs.net/ccooke/shell.html
-
-function doBash {
-	typeset P Q X Y a b c i v x y
-	for ((P=10**8,Q=P/100,X=320*Q/cols,Y=210*Q/lines,y=-105*Q,v=-220*Q,x=v;y<105*Q;x=v,y+=Y)); do
-		for ((;x<P;a=b=i=c=0,x+=X)); do
-			for ((;a**2+b**2<4*P**2&&i++<99;a=((c=a)**2-b**2)/P+x,b=2*c*b/P+y)); do :
-			done
-			colorBox $((i<99?i%16:0))
-		done
-		echo
-	done
-}
-
-function colorBox {
-	(($1==lastclr)) || printf %s "${colrs[lastclr=$1]:=$(tput setaf "$1")}"
-	printf '\u2588'
-}
-
-see_mandelbrot(){
-##User-contributed Tools ##Charles Cooke's 16-color Mandelbrot ##
-
-  tput smcup && clear
-  	unset -v lastclr
-  	((cols=$(tput cols)-1, lines=$(tput lines)))
-  	typeset -a colrs
-	  trap 'tput sgr0; echo' EXIT
-  	${BASH_VERSION+doBash}
-  $( printf '%s/n' "Press a key already.." && read -r -n 1 )
-  tput rmcup
-
-}
-
 go_sister(){
 ##Sensor   Tools ##SenPi (Sensor Integrating API) ##
 
@@ -79,9 +42,10 @@ build_its(){
 
 APP_NAME=$(whiptail --title "Tool generator" --inputbox "Enter tools Name, no spaces or specile charicters: " 10 60 3>&1 1>&2 2>&3)
 
-if [ ! -f "$(dirname "$0")/its/other/${APP_NAME}.its" ] ; then
+if [ ! -f "$(dirname "$0")/its/${APP_NAME}.its" ] ; then
 APP_DESC=$(whiptail --title "Enter a bash command" --inputbox "Enter a bash command:" 10 60 3>&1 1>&2 2>&3)
-printf "\n\nrun_${APP_NAME}(){\n\x23\x23User-contributed\x20Tools\x20\x23\x23${APP_NAME}\x20\x23\x23\n\t${APP_DESC}\n}\n" > "$(dirname "$0")/its/other/${APP_NAME}.its"
+MSSG_STR=$(whiptail --title "${APP_NAME}" --inputbox "Enter a message to de diplayed about tool" 10 60 3>&1 1>&2 2>&3)
+printf "\n\nrun_${APP_NAME}(){\n\x23\x23User\x20generated\x20tools\x20\x23\x23${APP_NAME}\x20\x23\x23\n\t${MSSG_STR}\n\t${APP_DESC}\n}\n" > "$(dirname "$0")/its/${APP_NAME}.its"
 make_ifts
 exit
 else
@@ -93,9 +57,69 @@ fi
 
 
 run_hello1(){
-##User-contributed Tools ##hello1 ##
+##User-contributed Tools ##hello ##
 	read -t 5 -n 1 -s -r -p "Press any key to continue"
 }
+
+# Requiers EFT-ITS format to show in menu is
+# double shh (2x#) singleString (2X#) Short multy string discription
+
+# Charles Cooke's 16-color Mandelbrot
+# http://earth.gkhs.net/ccooke/shell.html
+
+function doBash {
+	typeset P Q X Y a b c i v x y
+	for ((P=10**8,Q=P/100,X=320*Q/cols,Y=210*Q/lines,y=-105*Q,v=-220*Q,x=v;y<105*Q;x=v,y+=Y)); do
+		for ((;x<P;a=b=i=c=0,x+=X)); do
+			for ((;a**2+b**2<4*P**2&&i++<99;a=((c=a)**2-b**2)/P+x,b=2*c*b/P+y)); do :
+			done
+			colorBox $((i<99?i%16:0))
+		done
+		echo
+	done
+}
+
+function colorBox {
+	(($1==lastclr)) || printf %s "${colrs[lastclr=$1]:=$(tput setaf "$1")}"
+	printf '\u2588'
+}
+
+see_mandelbrot(){
+##User-contributed Tools ##Charles Cooke's 16-color Mandelbrot ##
+
+  tput smcup && clear
+  	unset -v lastclr
+  	((cols=$(tput cols)-1, lines=$(tput lines)))
+  	typeset -a colrs
+	  trap 'tput sgr0; echo' EXIT
+  	${BASH_VERSION+doBash}
+  $( printf '%s/n' "Press a key already.." && read -r -n 1 )
+  tput rmcup
+
+}
+
+go_pycorder(){
+##picorder Configuration ##picorderOS (setup) ##
+
+  sys_msg=$( echo "Place holder for picorder-config" )
+  whiptail --title "picorderOS-config" --msgbox "$( printf '%s\nsetup and configuration for picorderOS:\n\thttps://github.com/directive0/picorderOS' "${sys_msg[@]}" )" $(stty size) --scrolltext
+
+}
+
+run_about(){
+##picorder Configuration ##about ##
+
+  whiptail --msgbox "\
+This is beta software:
+Some of the options may have difficulties if you have heavily customised your installation.
+
+lkars-config provides configuration of the Raspberry Pi.
+lkars-config can be run at any time. \
+
+" 20 70 1
+
+}
+
 
 dist_conf(){
 ##System   Tools ##Configuration Utility (raspi-config) ##

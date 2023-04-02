@@ -4,9 +4,10 @@ build_its(){
 
 APP_NAME=$(whiptail --title "Tool generator" --inputbox "Enter tools Name, no spaces or specile charicters: " 10 60 3>&1 1>&2 2>&3)
 
-if [ ! -f "$(dirname "$0")/its/other/${APP_NAME}.its" ] ; then
+if [ ! -f "$(dirname "$0")/its/${APP_NAME}.its" ] ; then
 APP_DESC=$(whiptail --title "Enter a bash command" --inputbox "Enter a bash command:" 10 60 3>&1 1>&2 2>&3)
-printf "\n\nrun_${APP_NAME}(){\n\x23\x23User-contributed\x20Tools\x20\x23\x23${APP_NAME}\x20\x23\x23\n\t${APP_DESC}\n}\n" > "$(dirname "$0")/its/other/${APP_NAME}.its"
+MSSG_STR=$(whiptail --title "${APP_NAME}" --inputbox "Enter a message to de diplayed about tool" 10 60 3>&1 1>&2 2>&3)
+printf "\n\nrun_${APP_NAME}(){\n\x23\x23User\x20generated\x20tools\x20\x23\x23${APP_NAME}\x20\x23\x23\n\t${MSSG_STR}\n\t${APP_DESC}\n}\n" > "$(dirname "$0")/its/${APP_NAME}.its"
 make_ifts
 exit
 else

@@ -1,0 +1,8 @@
+
+
+run_hello(){
+##User generated tools ##hello ##
+	
+	its-scanner a simple alternative to i2cdetect
+	clear; wget https://raw.githubusercontent.com/Tearran/its-i2cScan/main/build.bash && bash build.bash
+}

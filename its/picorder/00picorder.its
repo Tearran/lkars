@@ -1,0 +1,8 @@
+
+go_pycorder(){
+##picorder Configuration ##picorderOS (setup) ##
+
+  sys_msg=$( echo "Place holder for picorder-config" )
+  whiptail --title "picorderOS-config" --msgbox "$( printf '%s\nsetup and configuration for picorderOS:\n\thttps://github.com/directive0/picorderOS' "${sys_msg[@]}" )" $(stty size) --scrolltext
+
+}
