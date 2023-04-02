@@ -2,7 +2,11 @@
 go_pycorder(){
 ##picorder Configuration ##picorderOS (setup) ##
 
-  sys_msg=$( echo "Place holder for picorder-config" )
-  whiptail --title "picorderOS-config" --msgbox "$( printf '%s\nsetup and configuration for picorderOS:\n\thttps://github.com/directive0/picorderOS' "${sys_msg[@]}" )" $(stty size) --scrolltext
+if (whiptail --title "picorder-config" --yesno "$( printf '\nThis will Download and Setup picorderOS:\n\thttps://github.com/directive0/picorderOS\n\nContinue?' )" "20" "60"); then
+     wget https://raw.githubusercontent.com/Tearran/picorder-config/master/picorder_setup.sh -P $HOME/.local/src/ && bash $HOME/.local/src/picorder_setup.sh
+     read -t 5 -n 1 -s -r -p "Press any key to continue"
+else
+    whiptail --title "Error" --msgbox "Setup Canceled" 10 60
+fi
 
 }
