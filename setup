@@ -19,8 +19,7 @@ fi
 #	wget https://github.com/Tearran/lkars/archive/refs/tags/v0.1.1.zip ; unzip "$dir/v0.1.1.zip" ; mv "$dir/lkars-0.1.1" "$dir/lkars"
 #fi
 
-chmod +x "$dir/lkars/lkars-config"
-bash "$dir/lkars/lkars-config"
+[[ -f "$dir/lkars/picorder-config" ]] && chmod +x "$dir/lkars/picorder-config" ; bash "$dir/lkars/picorder-config"
 
 # set lkars path
 if grep -q -F 'PATH="$HOME/.local/src/lkars:$PATH"' "$HOME/.profile"; then
