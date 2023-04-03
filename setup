@@ -9,17 +9,10 @@ else
 	git clone https://github.com/Tearran/lkars.git "$HOME/.local/src/lkars/"
 fi
 
-# precurser to release
-#if [ -d $dir ] ; then
-#	cd "$dir"
-#	wget https://github.com/Tearran/lkars/archive/refs/tags/v0.1.1.zip ; unzip "$dir/v0.1.1.zip" ; mv "$dir/lkars-0.1.1" "$dir/lkars"
-#else
-#	mkdir $dir
-#	cd $dir
-#	wget https://github.com/Tearran/lkars/archive/refs/tags/v0.1.1.zip ; unzip "$dir/v0.1.1.zip" ; mv "$dir/lkars-0.1.1" "$dir/lkars"
-#fi
+
 
 [[ -f "$dir/lkars/picorder-config" ]] && chmod +x "$dir/lkars/picorder-config" ; bash "$dir/lkars/picorder-config"
+#[[ ! -f "$dir/lkars/picorder-config" ]] && echo "Error: picorder-config not found" ; exit
 
 # set lkars path
 if grep -q -F 'PATH="$HOME/.local/src/lkars:$PATH"' "$HOME/.profile"; then
@@ -32,11 +25,6 @@ else
   	echo "Please reboot to complete the installation"
 fi
 
-# Prompt the user with a "yes/no" question using whiptail
-if whiptail --yesno "Setup complete. Would you like to reboot now?" 8 78; then
-  # If the user selects "yes", reboot the system using sudo
-  sudo reboot
-else
-  # If the user selects "no", display a message indicating that the system will not be rebooted
-  whiptail --msgbox "Remember to reboot the system when you're ready." 8 78
-fi
+whiptail --msgbox "Program complete. Enter when ready." --clear 8 78
+
+[[ -f "$dir/lkars/picorder-config" ]] && chmod +x "$dir/lkars/picorder-config" ; bash "$dir/lkars/picorder-config"
