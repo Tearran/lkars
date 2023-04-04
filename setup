@@ -5,7 +5,7 @@ if which git >/dev/null; then
   	git clone https://github.com/Tearran/lkars.git "$HOME/.local/src/lkars/"
 else
 	sudo apt update
-	sudo apt install git
+	sudo apt install git -y
 	git clone https://github.com/Tearran/lkars.git "$HOME/.local/src/lkars/"
 fi
 
