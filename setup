@@ -9,11 +9,6 @@ else
 	git clone https://github.com/Tearran/lkars.git "$HOME/.local/src/lkars/"
 fi
 
-
-
-[[ -f "$dir/lkars/picorder-config" ]] && chmod +x "$dir/lkars/picorder-config" ; bash "$dir/lkars/picorder-config"
-#[[ ! -f "$dir/lkars/picorder-config" ]] && echo "Error: picorder-config not found" ; exit
-
 # set lkars path
 if grep -q -F 'PATH="$HOME/.local/src/lkars:$PATH"' "$HOME/.profile"; then
   	echo "LKARS PATH is already set in $HOME/.profile"
