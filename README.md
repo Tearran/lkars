@@ -9,7 +9,7 @@ LKARS is a lightweight and modular runtime system configuration utility. LKARS i
 
 ### Easy setup.
 ```bash
-wget https://raw.githubusercontent.com/Tearran/lkars/master/setup ; bash ./setup
+wget -O /tmp/setup.sh https://raw.githubusercontent.com/Tearran/lkars/master/setup ; bash /tmp/setup.sh
 ```
 running development 
 ```bash
