@@ -1,0 +1,36 @@
+
+ini_tr109(){
+##picorder Configuration ##picorderOS (tr109) ##
+
+# Define the list of options
+options=( "pc" "tr108" "tr109" "sensehat" "system_vitals" "bme" "amg8833" "pocket_geiger" "ir_thermo" "envirophat" )
+
+# Use whiptail to display the checklist dialog and capture the user's selections
+choices=$(whiptail --checklist "Select sensors to include:" 15 60 9 \
+	"pc" "" off \
+    "sensehat" "" off \
+    "envirophat" "" off \
+    "system_vitals" "" off \
+    "bme" "" off \
+    "amg8833" "" off \
+    "pocket_geiger" "" off \
+    "ir_thermo" "" off \
+    "tr108" "" off \
+    "tr109" "" on \
+    3>&1 1>&2 2>&3)
+
+# Parse the user's selections and create a corresponding "yes/no" list
+result=""
+for option in ${options[@]}; do
+    if echo "$choices" | grep -q "\<$option\>"; then
+        status="yes"
+    else
+        status="no"
+    fi
+    result="${result}${option}=${status}\n"
+done
+
+# Output the final result
+echo -e "$result" > picorder.ini
+
+}
