@@ -22,4 +22,5 @@ fi
 
 whiptail --msgbox "Program complete. Enter when ready." --clear 8 78
 
-[[ -f "$dir/lkars/picorder-config" ]] && chmod +x "$dir/lkars/picorder-config" ; bash "$dir/lkars/picorder-config"
+[[ -f "$dir/lkars/picorder-config" ]] && chmod +x "$dir/lkars/picorder-config" && bash "$dir/lkars/picorder-config"
+[[ -f "$dir/lkars/lkars-config" ]] && chmod +x "$dir/lkars/lkars-config" && bash "$dir/lkars/lkars-config"
