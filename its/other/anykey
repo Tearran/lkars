@@ -1,6 +1,0 @@
-
-
-run_hello1(){
-##User-contributed Tools ##hello ##
-	read -t 5 -n 1 -s -r -p "Press any key to continue"
-}

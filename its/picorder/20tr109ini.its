@@ -1,6 +1,6 @@
 
 ini_tr109(){
-##picorder Configuration ##picorderOS (tr109) ##
+##picorderOS Tools ##Configure  (tr109) ##
 
 # Define the list of options
 options=( "pc" "tr108" "tr109" "sensehat" "system_vitals" "bme" "amg8833" "pocket_geiger" "ir_thermo" "envirophat" )
@@ -31,6 +31,8 @@ for option in ${options[@]}; do
 done
 
 # Output the final result
-echo -e "$result" > picorder.ini
+echo -e "$result" > $DIRECTORY/config.ini
+whiptail --textbox $DIRECTORY/config.ini $(stty size) --scrolltext
+
 
 }

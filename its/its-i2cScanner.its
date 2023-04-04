@@ -2,6 +2,7 @@
 
 run_its-i2cScanner(){
 ##User generated tools ##its-i2cScanner ##
+
 	A simple alternative to i2cdetect
 	clear; wget https://raw.githubusercontent.com/Tearran/its-i2cScan/main/build.bash && bash build.bash
 }

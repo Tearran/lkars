@@ -23,7 +23,7 @@ function colorBox {
 }
 
 see_mandelbrot(){
-##User-contributed Tools ##Charles Cooke's 16-color Mandelbrot ##
+##User-Made  Tools ##Charles Cooke's 16-color Mandelbrot ##
 
   tput smcup && clear
   	unset -v lastclr
@@ -31,7 +31,6 @@ see_mandelbrot(){
   	typeset -a colrs
 	  trap 'tput sgr0; echo' EXIT
   	${BASH_VERSION+doBash}
-  $( printf '%s/n' "Press a key already.." && read -r -n 1 )
   tput rmcup
 
 }

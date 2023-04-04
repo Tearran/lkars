@@ -1,6 +1,6 @@
 
 get_update(){
-##System Tools ##Update system's apt package list ##
+##System     Tools ##Update system's apt package list ##
 
   	whiptail --title "Update apt" --yesno "$( echo 'Are you sure you want to run <sudo apt update>?' )" 8 78
   	response=$?
