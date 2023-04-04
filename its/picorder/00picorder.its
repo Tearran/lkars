@@ -1,6 +1,6 @@
 
 go_pycorder(){
-##picorder Configuration ##picorderOS (setup) ##
+##picorder Configuration ##picorderOS (intall) ##
 
 if (whiptail --title "picorder-config" --yesno "$( printf '\nThis will Download and Setup picorderOS:\n\thttps://github.com/directive0/picorderOS\n\nContinue?' )" "20" "60"); then
      wget https://raw.githubusercontent.com/Tearran/picorder-config/master/picorder_setup.sh -P $HOME/.local/src/ && bash $HOME/.local/src/picorder_setup.sh
