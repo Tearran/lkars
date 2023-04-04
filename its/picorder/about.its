@@ -1,6 +1,6 @@
 
 run_about(){
-##picorder Configuration ##About ##
+##picorderOS Tools ##About ##
 
   whiptail --msgbox "\
 This is beta software:
