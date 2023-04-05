@@ -51,7 +51,7 @@ run_whiptail()
 end=0
 while :
   do
-	clear
+  
     # Display Main\Catagory menu 
     cat_result=$(whiptail --title  "${filename%.*}" --cancel-button Finish --menu --clear " " "$rows" "$cols" "$end" "${cat_loop[@]}" 3>&2 2>&1 1>&3- )
     
