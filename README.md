@@ -11,9 +11,9 @@ LKARS is a lightweight and modular runtime system configuration utility. LKARS i
 ```bash
 wget -O /tmp/setup.sh https://raw.githubusercontent.com/Tearran/lkars/master/setup ; bash /tmp/setup.sh
 ```
-running development 
+running
 ```bash
-bash $HOME/.local/src/lkars/lkars-config
+lkars-config
 ```
 running installed
 - in development
