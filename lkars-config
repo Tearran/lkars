@@ -89,22 +89,34 @@ make_ifts()
   #Library file name
   itsname=its-lib  
   #Check for lkars-its library if not found generate its
-  if ( whiptail --title  "${filename%.*}" --yesno  "\nGenerating requered Library?\n\n" 0 0  ) ; then
-  #Contributor spacific scripts   
-  [[ -d "$DIRECTORY"/its/other ]] && cat $( echo -e "$DIRECTORY"/its/other/*.its )  >  "$DIRECTORY"/$itsname
-  [[ -d "$DIRECTORY"/its/picorder ]] && cat $( echo -e "$DIRECTORY"/its/picorder/*.its )  >>  "$DIRECTORY"/$itsname
-  #distrabution spacific scripts 
-  [[ -d "$DIRECTORY"/its/"${distro_congfig}"/ ]] && cat $( echo -e "$DIRECTORY"/its/"${distro_congfig}"/*.its )  >>  "$DIRECTORY"/$itsname
- 
-  #Compleed message
- # bla=$( printf '\nLibrary Generation complete\n\tSystem set for %s \n\n\nPress OK to continue...' "${distro_congfig}" ) 
- # whiptail --title  "${filename%.*}" --msgbox "${bla}" 0 0
+  if ( whiptail --title  "${filename%.*}" --yesno  "\nGenerate Library?\n\n" 0 0  ) ; then
+  make_its
  fi
 
 }
 
+make_its()
+{
+  #Library file name
+  itsname=its-lib  
+  
+   # Completed message
+  whiptail --title "${filename%.*}" --gauge "Generating library..." 6 60 0 < <(
+    # Commands to generate library here
+    [[ -d "$DIRECTORY"/its/lkars ]] && cat $( echo -e "$DIRECTORY"/its/lkars/*.its )  >  "$DIRECTORY"/$itsname
+    echo "10" ; sleep 0.5
+    [[ -d "$DIRECTORY"/its/other ]] && cat $( echo -e "$DIRECTORY"/its/other/*.its )  >>  "$DIRECTORY"/$itsname
+    echo "40" ; sleep 0.5
+    [[ -d "$DIRECTORY"/its/picorder ]] && cat $( echo -e "$DIRECTORY"/its/picorder/*.its )  >>  "$DIRECTORY"/$itsname
+    echo "80" ; sleep 0.5
+    [[ -d "$DIRECTORY"/its/"${distro_congfig}"/ ]] && cat $( echo -e "$DIRECTORY"/its/"${distro_congfig}"/*.its )  >>  "$DIRECTORY"/$itsname
+    echo "100" ; sleep 0.5
+  )
+
+}
+
 #Generated library
-[[ $# -eq 0 ]] && ( ( [ -f "$libname" ] && run_whiptail ) || ( make_ifts && source "$libname" ; run_whiptail) )
+[[ $# -eq 0 ]] && ( ( [ -f "$libname" ] && run_whiptail ) || ( make_its && source "$libname" ; run_whiptail) )
 
 see_help()
 {
@@ -121,7 +133,7 @@ while getopts ":hvm" opt; do
     case $opt in
       h) see_help break ;;
       v) see_version break ;;
-      m) ( make_ifts  ) ; break ;; #Re-Generated library
+      m) ( make_ifts && source "$libname" ; run_whiptail  ) ; break ;; #Re-Generated library
       ?) echo  -e "\033[33;5m?! Say What!?\033[0m" ; see_help break ;;
     esac
   exit
