@@ -89,7 +89,7 @@ make_ifts()
   #Library file name
   itsname=its-lib  
   #Check for lkars-its library if not found generate its
-  if ( whiptail --title  "${filename%.*}" --yesno  "\nGenerate Library?\n\n" 0 0  ) ; then
+  if ( whiptail --title  "${filename%.*}" --yesno  "\nRegenerate its Library?\n\n" 0 0  ) ; then
   make_its
  fi
 
@@ -101,7 +101,7 @@ make_its()
   itsname=its-lib  
   
    # Completed message
-  whiptail --title "${filename%.*}" --gauge "Generating library..." 6 60 0 < <(
+  whiptail --title "${filename%.*}" --gauge "Generating its library..." 6 60 0 < <(
     # Commands to generate library here
     [[ -d "$DIRECTORY"/its/lkars ]] && cat $( echo -e "$DIRECTORY"/its/lkars/*.its )  >  "$DIRECTORY"/$itsname
     echo "10" ; sleep 0.5
