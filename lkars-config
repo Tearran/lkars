@@ -7,7 +7,7 @@ clear
 # versinfo="0.0.1" first alpha
 # versinfo="0.1.0" first release
 # versinfo="1.0.0" first stable release
-versinfo="0.1.1"
+versinfo="0.1.9"
 
 #Distrabution Compatibility check
 [[ -f /bin/raspi-config ]] && distro_congfig="raspi"
@@ -103,10 +103,8 @@ fi
 
 }
 
-
-
 #Generated library
-[[ $# -eq 0 ]] && ( ( [ -f "$libname" ] && run_whiptail ) || ( make_ifts ) )
+[[ $# -eq 0 ]] && ( ( [ -f "$libname" ] && run_whiptail ) || ( make_ifts && source "$libname") )
 
 see_help()
 {
