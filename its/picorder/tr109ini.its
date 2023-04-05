@@ -31,8 +31,13 @@ for option in ${options[@]}; do
 done
 
 # Output the final result
-echo -e "$result" > $DIRECTORY/config.ini
-whiptail --textbox $DIRECTORY/config.ini $(stty size) --scrolltext
 
+if [ -d $HOME/.local/src/lkars/its/picorder/ ]; then
+	echo -e "$result" > $HOME/.local/src/lkars/its/picorder/config.ini
+	whiptail --textbox $HOME/.local/src/lkars/its/picorder/config.ini $(stty size) --clear --scrolltext
+else
+	echo -e "$result" > $DIRECTORY/config.ini
+	whiptail --textbox $DIRECTORY/config.ini $(stty size) --clear --scrolltext
+fi
 
 }
