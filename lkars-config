@@ -7,7 +7,7 @@ clear
 # versinfo="0.0.1" first alpha
 # versinfo="0.1.0" first release
 # versinfo="1.0.0" first stable release
-versinfo="0.2.0"
+versinfo="0.2.5"
 
 #Distrabution Compatibility check
 [[ -f /bin/raspi-config ]] && distro_congfig="raspi"
