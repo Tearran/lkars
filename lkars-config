@@ -103,14 +103,16 @@ make_its()
    # Completed message
   whiptail --title "${filename%.*}" --gauge "Generating its library..." 6 60 0 < <(
     # Commands to generate library here
-    [[ -d "$DIRECTORY"/its/lkars ]] && cat $( echo -e "$DIRECTORY"/its/lkars/*.its )  >  "$DIRECTORY"/$itsname
-    echo "10" ; sleep 0.5
+    
+    echo "" > "$DIRECTORY"/$itsname
     [[ -d "$DIRECTORY"/its/other ]] && cat $( echo -e "$DIRECTORY"/its/other/*.its )  >>  "$DIRECTORY"/$itsname
-    echo "40" ; sleep 0.5
+    echo "10" ; sleep 0.1
+    [[ -d "$DIRECTORY"/its/lkars ]] && cat $( echo -e "$DIRECTORY"/its/lkars/*.its )  >>  "$DIRECTORY"/$itsname
+    echo "40" ; sleep 0.1
     [[ -d "$DIRECTORY"/its/picorder ]] && cat $( echo -e "$DIRECTORY"/its/picorder/*.its )  >>  "$DIRECTORY"/$itsname
-    echo "80" ; sleep 0.5
+    echo "80" ; sleep 0.1
     [[ -d "$DIRECTORY"/its/"${distro_congfig}"/ ]] && cat $( echo -e "$DIRECTORY"/its/"${distro_congfig}"/*.its )  >>  "$DIRECTORY"/$itsname
-    echo "100" ; sleep 0.5
+    echo "100" ; sleep 0.1
   )
 
 }

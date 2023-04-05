@@ -1,41 +1,4 @@
 
-go_sister(){
-##Sensor     Tools ##SenPi (Sensor Integrating API) ##
-
-if [ ! -d "$HOME/.local/src" ]; then
-    mkdir -p "$HOME/.local/src"
-	cd "$HOME/.local/src"
-	wrkdir=$(pwd)
-else
-    cd "$HOME/.local/src"
-	wrkdir=$(pwd)
-fi
-
-# Check if git and pip3 are installed
-
-if ! command -v git &> /dev/null; then
-    apt_package+=("git")
-fi
-
-if ! command -v pip3 &> /dev/null; then
-    echo "Pip3 is not installed"
-    apt_package+=("python3-pip")
-fi
-
-if [ ${#apt_package[@]} -eq 0 ]; then
-    mssg="'All required apt packages are installed'"
-    whiptail --title "Error" --msgbox "$( echo ${mssg} )" 10 60
-else
-    sudo apt update
-    sudo apt install -y "${apt_package[@]}"
-fi
-
-if [ ! -d "$HOME/.local/src/sister" ]; then
-    echo "Downloading git repository"
-	cd "$HOME/.local/src" && git clone https://github.com/Tearran/sister.git
-fi
-
-}
 
 build_its(){
 ##User-Made  Tools ##User menu Generater ##
@@ -51,15 +14,6 @@ else
     whiptail --title "Error" --msgbox "$( echo ${APP_NAME} ).its file exist!\nPllease try agian" 10 60
     return 1
 fi
-
-}
-
-
-run_hi(){
-##User-Made  Tools ##hi ##
-
-	clear;
-	echo hi
 
 }
 
@@ -99,25 +53,88 @@ see_mandelbrot(){
 
 }
 
+go_sister(){
+##Sensor     Tools ##SenPi (Sensor Integrating API) ##
 
-run_test(){
-##User-Made  Tools ##test ##
+if [ ! -d "$HOME/.local/src" ]; then
+    mkdir -p "$HOME/.local/src"
+	cd "$HOME/.local/src"
+	wrkdir=$(pwd)
+else
+    cd "$HOME/.local/src"
+	wrkdir=$(pwd)
+fi
 
-	clear;
-	read -n 1 -s -r -p "Press any key to continue" ; 
+# Check if git and pip3 are installed
+
+if ! command -v git &> /dev/null; then
+    apt_package+=("git")
+fi
+
+if ! command -v pip3 &> /dev/null; then
+    echo "Pip3 is not installed"
+    apt_package+=("python3-pip")
+fi
+
+if [ ${#apt_package[@]} -eq 0 ]; then
+    mssg="'All required apt packages are installed'"
+    whiptail --title "Error" --msgbox "$( echo ${mssg} )" 10 60
+else
+    sudo apt update
+    sudo apt install -y "${apt_package[@]}"
+fi
+
+if [ ! -d "$HOME/.local/src/sister" ]; then
+    echo "Downloading git repository"
+	cd "$HOME/.local/src" && git clone https://github.com/Tearran/sister.git
+fi
 
 }
 
-go_pycorder(){
-##picorderOS Tools ##Intall     (picorderOS) ##
 
-if (whiptail --title "picorder-config" --yesno "$( printf '\nThis will Download and Setup picorderOS:\n\thttps://github.com/directive0/picorderOS\n\nContinue?' )" "20" "60"); then
-     echo "place holder for installer"
-     read -t 5 -n 1 -s -r -p "Press any key to continue"
-else
-    whiptail --title "Error" --msgbox "Setup Canceled" 10 60
-fi
+run_st7789(){
+##Display    Tools ##LCD-SPI driver (ST7789) ##
+	echo -e "\nA place holder for:\n\tjuj's fbcp-ili9341 \n\thttps://github.com/juj/fbcp-ili9341\n\n\n\n" ;
+ 	read -n 1 -s -r -p "Press any key to continue" ;
+ 	echo "" ;
+	return 0
+}
 
+run_st7735(){
+##Display    Tools ##LCD-SPI driver (ST77835) ##
+	echo -e "\nA place holder for:\n\tjuj's fbcp-ili9341 \n\thttps://github.com/juj/fbcp-ili9341\n\n\n\n" ;
+ 	read -n 1 -s -r -p "Press any key to continue" ;
+ 	echo "" ;
+	return 0
+}
+
+run_ST7789VW(){
+##Display    Tools ##LCD-SPI driver (ST7789VW) ##
+	echo -e "\nA place holder for:\n\tjuj's fbcp-ili9341 \n\thttps://github.com/juj/fbcp-ili9341\n\n\n\n" ;
+ 	read -n 1 -s -r -p "Press any key to continue" ;
+ 	echo "" ;
+	return 0
+}
+
+
+go_picorder1(){
+##picorderOS Tools ##picorderOS (Setup) ##
+
+  sys_msg=$( echo "Place holder for picorder-config" )
+
+  #whiptail --title "picorderOS-config" --msgbox "$( printf '%s\nsetup and configuration for picorderOS:\n\thttps://github.com/directive0/picorderOS' "${sys_msg[@]}" )" $(stty size) --scrolltext
+
+  if ( whiptail --title  "${filename%.*}" --yesno  "Download and set up PicorderOS and its requirements?\n\n" 0 0  ) ; then
+    if ! which git >/dev/null; then
+      sudo apt update && sudo apt install git -y
+    fi
+
+    if [ ! -d "$HOME/.local/src/picorderOS/" ]; then
+      git clone https://github.com/directive0/picorderOS "$HOME/.local/src/picorderOS/"
+	else
+		whiptail --title "Error" --msgbox "picorderOS is already located at $HOME/.local/src/picorderOS/" 10 60 ;
+    fi
+  fi
 }
 
 ini_tr109(){

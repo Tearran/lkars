@@ -1,0 +1,25 @@
+
+
+run_st7789(){
+##Display    Tools ##LCD-SPI driver (ST7789) ##
+	echo -e "\nA place holder for:\n\tjuj's fbcp-ili9341 \n\thttps://github.com/juj/fbcp-ili9341\n\n\n\n" ;
+ 	read -n 1 -s -r -p "Press any key to continue" ;
+ 	echo "" ;
+	return 0
+}
+
+run_st7735(){
+##Display    Tools ##LCD-SPI driver (ST77835) ##
+	echo -e "\nA place holder for:\n\tjuj's fbcp-ili9341 \n\thttps://github.com/juj/fbcp-ili9341\n\n\n\n" ;
+ 	read -n 1 -s -r -p "Press any key to continue" ;
+ 	echo "" ;
+	return 0
+}
+
+run_ST7789VW(){
+##Display    Tools ##LCD-SPI driver (ST7789VW) ##
+	echo -e "\nA place holder for:\n\tjuj's fbcp-ili9341 \n\thttps://github.com/juj/fbcp-ili9341\n\n\n\n" ;
+ 	read -n 1 -s -r -p "Press any key to continue" ;
+ 	echo "" ;
+	return 0
+}

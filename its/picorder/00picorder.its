@@ -1,12 +1,21 @@
 
-go_pycorder(){
-##picorderOS Tools ##Intall     (picorderOS) ##
 
-if (whiptail --title "picorder-config" --yesno "$( printf '\nThis will Download and Setup picorderOS:\n\thttps://github.com/directive0/picorderOS\n\nContinue?' )" "20" "60"); then
-     echo "place holder for installer"
-     read -t 5 -n 1 -s -r -p "Press any key to continue"
-else
-    whiptail --title "Error" --msgbox "Setup Canceled" 10 60
-fi
+go_picorder1(){
+##picorderOS Tools ##picorderOS (Setup) ##
 
+  sys_msg=$( echo "Place holder for picorder-config" )
+
+  #whiptail --title "picorderOS-config" --msgbox "$( printf '%s\nsetup and configuration for picorderOS:\n\thttps://github.com/directive0/picorderOS' "${sys_msg[@]}" )" $(stty size) --scrolltext
+
+  if ( whiptail --title  "${filename%.*}" --yesno  "Download and set up PicorderOS and its requirements?\n\n" 0 0  ) ; then
+    if ! which git >/dev/null; then
+      sudo apt update && sudo apt install git -y
+    fi
+
+    if [ ! -d "$HOME/.local/src/picorderOS/" ]; then
+      git clone https://github.com/directive0/picorderOS "$HOME/.local/src/picorderOS/"
+	else
+		whiptail --title "Error" --msgbox "picorderOS is already located at $HOME/.local/src/picorderOS/" 10 60 ;
+    fi
+  fi
 }
