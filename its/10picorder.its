@@ -6,3 +6,19 @@ go_pycorder(){
   whiptail --title "picorderOS-config" --msgbox "$( printf '%s\nsetup and configuration for picorderOS:\n\thttps://github.com/directive0/picorderOS' "${sys_msg[@]}" )" $(stty size) --scrolltext
 
 }
+
+go_pycorder(){
+##LKARS Configuration ##picorderOS (picorder-confg) ##
+  dir="$HOME/.local/src"
+  sys_msg=$( echo "Place holder for picorder-config" )
+  #whiptail --title "picorderOS-config" --msgbox "$( printf '%s\nsetup and configuration for picorderOS:\n\thttps://github.com/directive0/picorderOS' "${sys_msg[@]}" )" $(stty size) --scrolltext
+  if ( whiptail --title  "${filename%.*}" --yesno  "\nRegenerate its Library?\n\n" 0 0  ) ; then
+    if which git >/dev/null; then
+      git clone https://github.com/directive0/picorderOS "$HOME/.local/src/lkars/"
+   else
+      sudo apt update
+      sudo apt install git -y
+      git clone https://github.com/directive0/picorderOS "$HOME/.local/src/picorerOS/"
+    fi
+  fi
+}
