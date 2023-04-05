@@ -101,7 +101,6 @@ make_ifts()
  # whiptail --title  "${filename%.*}" --msgbox "${bla}" 0 0
  # fi
 source "$libname"
-return 0
 }
 
 #Generated library
