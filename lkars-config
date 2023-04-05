@@ -89,7 +89,7 @@ make_ifts()
   #Library file name
   itsname=its-lib  
   #Check for lkars-its library if not found generate its
-  # if ( whiptail --title  "${filename%.*}" --yesno  "\nGenerating requered Library?\n\n" 0 0  ) ; then
+  if ( whiptail --title  "${filename%.*}" --yesno  "\nGenerating requered Library?\n\n" 0 0  ) ; then
   #Contributor spacific scripts   
   [[ -d "$DIRECTORY"/its/other ]] && cat $( echo -e "$DIRECTORY"/its/other/*.its )  >  "$DIRECTORY"/$itsname
   [[ -d "$DIRECTORY"/its/picorder ]] && cat $( echo -e "$DIRECTORY"/its/picorder/*.its )  >>  "$DIRECTORY"/$itsname
@@ -99,12 +99,12 @@ make_ifts()
   #Compleed message
  # bla=$( printf '\nLibrary Generation complete\n\tSystem set for %s \n\n\nPress OK to continue...' "${distro_congfig}" ) 
  # whiptail --title  "${filename%.*}" --msgbox "${bla}" 0 0
- # fi
-source "$libname"
+ fi
+
 }
 
 #Generated library
-[[ $# -eq 0 ]] && ( ( [ -f "$libname" ] && run_whiptail ) || ( make_ifts && source "$libname") )
+[[ $# -eq 0 ]] && ( ( [ -f "$libname" ] && run_whiptail ) || ( make_ifts && source "$libname" ; run_whiptail) )
 
 see_help()
 {
