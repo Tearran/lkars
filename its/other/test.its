@@ -1,9 +1,0 @@
-
-
-run_test(){
-##User-Made  Tools ##test ##
-
-	clear;
-	read -n 1 -s -r -p "Press any key to continue" ; 
-
-}

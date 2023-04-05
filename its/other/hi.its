@@ -1,9 +1,0 @@
-
-
-run_hi(){
-##User-Made  Tools ##hi ##
-
-	clear;
-	echo hi
-
-}
