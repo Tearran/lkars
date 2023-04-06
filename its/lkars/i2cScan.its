@@ -1,0 +1,17 @@
+
+
+run_i2cScanner(){
+##Sensor     Tools ##i2c Scanner   (its-i2cScanner) ##
+
+	clear
+    if [ -f /usr/bin/its-i2cScan ] ; then
+		readarray -t i2c_output < <(its-i2cScan 1)
+		whiptail --title "its-i2cScan" --msgbox "$(printf '%s\n' "${i2c_output[@]}")" 10 60
+	else
+        if whiptail --title "its-i2cScan not found" --yesno "its-i2cScan is not installed. Do you want to download and install it now?" 10 60; then
+            wget https://raw.githubusercontent.com/Tearran/its-i2cScan/main/build.bash && bash build.bash
+        else
+            exit 1
+        fi
+	fi
+}
