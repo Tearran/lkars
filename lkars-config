@@ -109,7 +109,7 @@ make_its()
     echo "10" ; sleep 0.1
     [[ -d "$DIRECTORY"/its/lkars ]] && cat $( echo -e "$DIRECTORY"/its/lkars/*.its )  >>  "$DIRECTORY"/$itsname
     echo "40" ; sleep 0.1
-    [[ -d "$DIRECTORY"/its/picorder ]] && cat $( echo -e "$DIRECTORY"/its/picorder/*.its )  >>  "$DIRECTORY"/$itsname
+#    [[ -d "$DIRECTORY"/its/picorder ]] && cat $( echo -e "$DIRECTORY"/its/picorder/*.its )  >>  "$DIRECTORY"/$itsname
     echo "80" ; sleep 0.1
     [[ -d "$DIRECTORY"/its/"${distro_congfig}"/ ]] && cat $( echo -e "$DIRECTORY"/its/"${distro_congfig}"/*.its )  >>  "$DIRECTORY"/$itsname
     echo "100" ; sleep 0.1
