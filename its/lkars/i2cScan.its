@@ -15,3 +15,12 @@ run_i2cScanner(){
         fi
 	fi
 }
+
+
+
+run_pinstate(){
+##Sensor     Tools ##i2c bus status   (raspi-gpio) ##
+
+	 for i in {0..53}; do   var=$(raspi-gpio get $i);  echo -e "\t$var" >> pinout.txt;  >> pinout.txt; done; whiptail --scrolltext --textbox pinout.txt 30 $(tput cols) ;
+
+}
