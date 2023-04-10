@@ -36,45 +36,36 @@ EOF
 # Copy temp startup configuration to System folder
 sudo cp -f /tmp/fbcpd.service /etc/systemd/system/fbcpd.service
 
-echo "50" ; sleep 0.1
+echo "50"
+sleep 0.1
 # Enable the daemon
 sudo systemctl enable fbcpd.service
-
-echo "80" ; sleep 0.1
+echo "80"
+sleep 0.1
 # Start the daemon
 sudo systemctl start fbcpd.service
-
-echo "100" ; sleep 0.1
+echo "100"
+sleep 0.1
 )
 
 }
 
-set_ws154conf() {
+bac_conf() {
 
-local i="$1"
-grep "hdmi_group=2" /boot/config.txt || echo "hdmi_group=2"  | sudo tee -a /boot/config.txt
-grep "hdmi_mode=87" /boot/config.txt || echo "hdmi_mode=87" | sudo tee -a /boot/config.txt
-grep "hdmi_cvt=300 300 60 1 0 0 0" /boot/config.txt || echo "hdmi_cvt=300 300 60 1 0 0 0"  | sudo tee -a /boot/config.txt
-grep "hdmi_force_hotplug=1" /boot/config.txt || echo "hdmi_force_hotplug=1"	| sudo tee -a /boot/config.txt
-grep "display_rotate=" /boot/config.txt || echo "display_rotate=$i" | sudo tee -a /boot/config.txt
-grep "dtoverlay=gpio-key,gpio=19,active_low=0,gpio_pull=up,label=home,keycode=16" /boot/config.txt || echo "dtoverlay=gpio-key,gpio=19,active_low=0,gpio_pull=up,label=home,keycode=16" | sudo tee -a /boot/config.txt
-grep "dtoverlay=gpio-key,gpio=26,active_low=0,gpio_pull=up,label=enter,keycode=28" /boot/config.txt || echo "dtoverlay=gpio-key,gpio=26,active_low=0,gpio_pull=up,label=enter,keycode=28" | sudo tee -a /boot/config.txt
-#grep "dtoverlay=gpio-key,gpio=23,active_low=0,gpio_pull=up,label=enter,keycode=28" /boot/config.txt || echo "dtoverlay=gpio-key,gpio=23,active_low=0,gpio_pull=up,label=enter,keycode=28" | sudo tee -a /boot/config.txt
-#grep "dtoverlay=gpio-key,gpio=14,active_low=0,gpio_pull=up,label=enter,keycode=28" /boot/config.txt || echo "dtoverlay=gpio-key,gpio=14,active_low=0,gpio_pull=up,label=enter,keycode=28" | sudo tee -a /boot/config.txt
-grep "dtoverlay=gpio-key,gpio=12,active_low=0,gpio_pull=up,label=enter,keycode=21" /boot/config.txt || echo "dtoverlay=gpio-key,gpio=12,active_low=0,gpio_pull=up,label=enter,keycode=21" | sudo tee -a /boot/config.txt
-grep "dtoverlay=gpio-key,gpio=19,active_low=0,gpio_pull=up,label=enter,keycode=45" /boot/config.txt || echo "dtoverlay=gpio-key,gpio=19,active_low=0,gpio_pull=up,label=enter,keycode=45" | sudo tee -a /boot/config.txt
-grep "dtoverlay=gpio-key,gpio=20,active_low=0,gpio_pull=up,label=back,keycode=48" /boot/config.txt || echo "dtoverlay=gpio-key,gpio=20,active_low=0,gpio_pull=up,label=back,keycode=48" | sudo tee -a /boot/config.txt
-grep "dtoverlay=gpio-key,gpio=16,active_low=0,gpio_pull=up,label=up,keycode=72" /boot/config.txt || echo "dtoverlay=gpio-key,gpio=16,active_low=0,gpio_pull=up,label=up,keycode=72" | sudo tee -a /boot/config.txt
-grep "dtoverlay=gpio-key,gpio=6,active_low=0,gpio_pull=up,label=down,keycode=80" /boot/config.txt || echo "dtoverlay=gpio-key,gpio=6,active_low=0,gpio_pull=up,label=down,keycode=80" | sudo tee -a /boot/config.txt
-grep "dtoverlay=gpio-key,gpio=13,active_low=0,gpio_pull=up,label=left,keycode=75" /boot/config.txt || echo "dtoverlay=gpio-key,gpio=13,active_low=0,gpio_pull=up,label=left,keycode=75" | sudo tee -a /boot/config.txt
+file="/boot/config.txt"
+backup_file="$file.1"
 
+#while [[ -e $backup_file ]]; do
+#   backup_file=${backup_file%.*}.$(( ${backup_file##*.} + 1 ))
+#done
+while [[ -e $backup_file ]]; do backup_file=${backup_file%.*}.$(( ${backup_file##*.} + 1 )); done
+sudo cp "$file" "$backup_file"
 	return 0
 }
 
 run_waveshare154(){
 ##Display    Tools ##LCD HAT (waveshare 1 54 inch) ##
 
-  	local rot=3
     get_fbcp
 
     if [[ -f "$HOME/.local/src/its-fbcp/fbcp-gamepi13/fbcp-gamepi13.bin" ]]; then
@@ -83,17 +74,34 @@ run_waveshare154(){
 		sleep 1
         set_fbcpd
 		sleep 1
-		set_ws154conf
+  		bac_conf
+sudo cat << EOF > /tmp/confit.txt
+hdmi_group=2
+hdmi_mode=87
+hdmi_cvt=300 300 60 1 0 0 0
+hdmi_force_hotplug=1
+display_rotate=3
+
+dtparam=i2c_arm=on
+
+dtoverlay=gpio-key,gpio=19,active_low=0,gpio_pull=up,label=KEY_KPENTER,keycode=96
+dtoverlay=gpio-key,gpio=5,active_low=0,gpio_pull=up,label=UP_BUTTON,keycode=108
+dtoverlay=gpio-key,gpio=6,active_low=0,gpio_pull=up,label=DOWN_BUTTON,keycode=103
+dtoverlay=gpio-key,gpio=13,active_low=0,gpio_pull=up,label=RIGHT_BUTTON,keycode=105
+dtoverlay=gpio-key,gpio=16,active_low=0,gpio_pull=up,label=LEFT_BUTTON,keycode=106
+dtoverlay=gpio-key,gpio=20,active_low=0,gpio_pull=up,label=KEY_BACKSPACE,keycode=14
+dtoverlay=gpio-key,gpio=21,active_low=0,gpio_pull=up,label=START_BUTTON,keycode=28
+
+EOF
+
+sudo cp -f //tmp/confit.txt /boot/config.txt
 
         if (whiptail --title "WaveShare 1.3" --yesno "Is the display working?" 8 78); then
 			echo ""
-
     	else
     		whiptail --title "error" --msgbox "User selected No, exit" 8 78
-
 			exit 1
     	fi
-
     fi
 
     whiptail  --msgbox "program complete, enter when ready!" 8 78
@@ -103,7 +111,6 @@ run_waveshare154(){
 run_waveshare13(){
 ##Display    Tools ##LCD HAT (waveshare 1 3 inch) ##
 
-	local rot=1
     get_fbcp
 
     if [[ -f "$HOME/.local/src/its-fbcp/fbcp-gamepi13/fbcp-gamepi13.bin" ]]; then
@@ -113,7 +120,7 @@ run_waveshare13(){
         set_fbcpd
 		sleep 1
 		set_ws154conf
-
+		grep "display_rotate=1" /boot/config.txt || echo "display_rotate=1" | sudo tee -a /boot/config.txt
         if (whiptail --title "WaveShare 1.3" --yesno "Is the display working?" 8 78); then
 			echo ""
 
@@ -122,7 +129,6 @@ run_waveshare13(){
 
 			exit 1
     	fi
-
     fi
 
     whiptail  --msgbox "program complete, enter when ready!" 8 78
