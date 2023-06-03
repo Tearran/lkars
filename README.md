@@ -5,7 +5,7 @@
 ![](https://img.shields.io/github/forks/Tearran/lkars)
 ![](https://img.shields.io/github/license/Tearran/lkars)
 
-LKARS is a collection of I2C sensor algorithms, display drivers, and databases. It is designed to configure a single-board computer (SBC) to use common I2C sensors and display their information using a command-line interface (CLI) and a web-based user interface (UI). LKARS is similar in nature to the raspi-config utility.
+LKARS is a collection of I2C sensor algorithms, display drivers, and databases. It is designed to configure a single-board computer (SBC) to use common I2C sensors and display their information using a command-line interface (CLI) and or a web-based user interface (UI). LKARS is similar in nature to the raspi-config utility.
 
 LKARS supports the use of various configuration utilities, including `raspi-config` for Raspbian-based systems and `armbian-config` for Armbian-based systems. These utilities provide a user-friendly interface for configuring various system settings and options.
 
