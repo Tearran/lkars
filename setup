@@ -1,26 +1,15 @@
 #/bin/bash
-dir="$HOME/.local/src"
+
+dir="$HOME/.local/src/neo-config"
 
 if which git >/dev/null; then
-  	git clone https://github.com/Tearran/lkars.git "$HOME/.local/src/lkars/"
+  	git clone https://github.com/Tearran/lkars.git "$dir"
 else
 	sudo apt update
 	sudo apt install git -y
-	git clone https://github.com/Tearran/lkars.git "$HOME/.local/src/lkars/"
-fi
-
-# set lkars path
-if grep -q -F 'PATH="$HOME/.local/src/lkars:$PATH"' "$HOME/.profile"; then
-  	echo "LKARS PATH is already set in $HOME/.profile"
-else
-  	echo 'if [ -d "$HOME/.local/src/lkars" ] ; then
-  	PATH="$HOME/.local/src/lkars:$PATH"
-	fi' >> "$HOME/.profile"
-  	echo "LKARS PATH has been added to $HOME/.profile"
-  	echo "Please reboot to complete the installation"
+	https://github.com/Tearran/neo-config.git "$dir"
 fi
 
 whiptail --msgbox "Program complete. Enter when ready." --clear 8 78
 
-[[ -f "$dir/lkars/picorder-config" ]] && chmod +x "$dir/lkars/picorder-config" && bash "$dir/lkars/picorder-config"
-[[ -f "$dir/lkars/lkars-config" ]] && chmod +x "$dir/lkars/lkars-config" && bash "$dir/lkars/lkars-config"
+[[ -f "$dir" ]] && chmod +x "$dir/neo-config" && bash "$dir/neo-config"
